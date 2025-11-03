@@ -2,3 +2,12 @@
 @import "tailwindcss-primeui";
 @import "primeicons/primeicons.css";
 @custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
+
+@layer components {
+	.p-menubar-start {
+		@apply flex flex-row grow w-max;
+	}
+	.p-menubar-start > .spacer {
+		@apply flex-1;
+	}
+}

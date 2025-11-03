@@ -280,7 +280,7 @@ const rose: ColorScale = {
 	950: '#4c0519'
 };
 
-const primary = violet;
+const primary = englishViolet;
 const surface = darkSilver;
 
 const customPreset: Preset<LaraBaseDesignTokens> = {
@@ -309,10 +309,10 @@ const customPreset: Preset<LaraBaseDesignTokens> = {
 			light: {
 				surface: surface,
 				// primary: {
-				// 	color: primary[950],
+				// 	color: primary[600],
 				// 	contrastColor: surface[50],
-				// 	hoverColor: primary[900],
-				// 	activeColor: primary[800],
+				// 	hoverColor: primary[400],
+				// 	activeColor: primary[500],
 				// },
 				// highlight: {
 				// 	background: primary[950],
@@ -325,9 +325,9 @@ const customPreset: Preset<LaraBaseDesignTokens> = {
 				surface: surface,
 				// primary: {
 				// 	color: primary[50],
-				// 	contrastColor: primary[950],
-				// 	hoverColor: primary[100],
-				// 	activeColor: primary[200],
+				// 	contrastColor: primary[700],
+				// 	hoverColor: primary[200],
+				// 	activeColor: primary[300],
 				// },
 				// highlight: {
 				// 	background: surface[950],
