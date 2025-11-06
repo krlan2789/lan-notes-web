@@ -23,7 +23,7 @@ selectedTags.value?.delete("");
 // 	status: e.status,
 // 	tags: e.tags,
 // }));
-const notes = await loadAllNotes(route.path);
+const notes = await loadAllNotes({ path: route.path });
 const tags = [...new Set((notes ?? []).flatMap((n) => n.tags ?? []))];
 
 const filteredNotes = computed(() => {

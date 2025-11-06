@@ -1,9 +1,10 @@
 import type INoteContent from "./interfaces/INoteContent";
 
-export default async (path?: string, limit?: number): Promise<INoteContent[]> => {
-	const { data } = await useAsyncData(path ?? 'notes', async () => {
+export default async (filters?: { path?: string, limit?: number, latestFirst?: boolean }): Promise<INoteContent[]> => {
+	const { data } = await useAsyncData(filters?.path ?? 'notes', async () => {
 		let query = queryCollection("notes");
-		if (limit) query = query.limit(limit);
+		if (filters?.limit) query = query.limit(filters?.limit);
+		if (filters?.latestFirst) query = query.order('date', 'DESC');
 		return await query.all();
 	});
 

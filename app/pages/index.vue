@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const notes = await loadAllNotes();
+const notes = await loadAllNotes({ latestFirst: true });
 const metaTitle = appName + " | Erlan Kurnia";
 const metaDesc = appTagline;
 useSeoMeta({

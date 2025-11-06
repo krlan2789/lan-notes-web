@@ -2,9 +2,7 @@
 import type INoteContent from "~/utils/interfaces/INoteContent";
 import type { TimelineComponentProps } from "./TimelineComponent.props";
 
-const props = defineProps<TimelineComponentProps>();
-
-// const tags = [...new Set([...props.items.flatMap((n) => n.tags)])];
+defineProps<TimelineComponentProps>();
 </script>
 
 <template>
