@@ -1,0 +1,88 @@
+/* ------------ Markdown ------------ */
+@layer components {
+	#markdown hr {
+		@apply my-2;
+	}
+
+	#markdown h1 {
+		@apply my-4 text-2xl border-b-2 pb-2 border-b-surface-700;
+	}
+
+	#markdown h2 {
+		@apply my-3 text-xl;
+	}
+
+	#markdown h3 {
+		@apply my-3 text-lg;
+	}
+
+	#markdown h4 {
+		@apply my-2 text-[1.1rem];
+	}
+
+	#markdown ol > *,
+	#markdown ul > * {
+		@apply mt-4 ml-10;
+	}
+
+	#markdown ul > li {
+		@apply list-[circle];
+	}
+
+	#markdown ol > li {
+		@apply list-decimal;
+	}
+
+	#markdown pre:has(> code) {
+		@apply w-full block overflow-x-auto rounded-lg p-4 pr-8 bg-neutral-800;
+	}
+
+	#markdown #markdown-content ul > li > img,
+	#markdown #markdown-content ol > li > img {
+		@apply my-2;
+	}
+
+	#markdown #markdown-content > p:has(> strong) {
+		@apply mt-4 mb-2;
+	}
+
+	/* #markdown #markdown-content pre:has(> code) {
+		@apply select-text;
+	}
+
+	#markdown #markdown-content p > pre:has(> code > span),
+	#markdown #markdown-content li > pre:has(> code > span) {
+		@apply bg-surface-300! rounded-lg py-1! px-2!;
+	} */
+
+	#markdown #markdown-content table {
+		@apply border-2 w-full my-2;
+	}
+
+	#markdown #markdown-content *:has(> table) {
+		@apply overflow-x-auto;
+	}
+
+	#markdown #markdown-content table th,
+	#markdown #markdown-content table td {
+		@apply border-primary/50 border-2;
+	}
+
+	#markdown #markdown-content li > code,
+	#markdown #markdown-content p > code {
+		@apply rounded-md px-1 border-primary/50 border-2;
+	}
+
+	#markdown #markdown-content table th {
+		@apply p-3;
+	}
+
+	#markdown #markdown-content table td {
+		@apply py-2 px-3;
+	}
+
+	#markdown #markdown-content img {
+		@apply my-4;
+	}
+}
+/* ------------ Markdown ------------ */

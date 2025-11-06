@@ -1,29 +1,79 @@
 import tailwindcss from "@tailwindcss/vite";
-import Noir from './privmevue.theme';
+import Noir from "./privmevue.theme";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	compatibilityDate: '2025-07-15',
+	compatibilityDate: "2025-07-15",
 	ssr: false,
 	devtools: { enabled: true },
-	css: ['~/assets/css/tailwind.css'],
+	css: ["~/assets/css/tailwind.css"],
 	app: {
 		head: {
+			title: "Notes - Erlan Kurnia",
 			link: [
-				{ rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png', },
-				{ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png', },
-				{ rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png', },
-				{ rel: 'manifest', href: '/site.webmanifest', },
+				{ rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+				{ rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+				{ rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+				{ rel: "manifest", href: "/site.webmanifest" },
 			],
 		},
 	},
+	pages: {
+		pattern: ["**/*.vue", "!**/components/**"],
+	},
+	content: {
+		build: {
+			markdown: {
+				toc: {
+					searchDepth: 1,
+				},
+				highlight: {
+					theme: "ayu-dark",
+					langs: [
+						"bash",
+						"csharp",
+						"shell",
+						"ini",
+						"properties",
+						"javascript",
+						"typescript",
+						"php",
+						"vue",
+						"cmd",
+						"cmake",
+						"kotlin",
+						"http",
+						"xml",
+						"ruby",
+						"nginx",
+						"apache",
+					],
+				},
+			},
+		},
+	},
+	mdc: {
+		components: {
+			prose: false,
+		},
+	},
+	components: [
+		"~/components",
+		{
+			path: "~/pages",
+			pattern: "**/components/**",
+			pathPrefix: false,
+		},
+	],
 	modules: [
-		'@nuxt/eslint',
-		'@nuxt/content',
-		'@nuxt/ui',
-		'@nuxt/scripts',
-		'@nuxt/image',
-		'@primevue/nuxt-module',
+		"@nuxt/eslint",
+		"@nuxt/content",
+		"@nuxt/ui",
+		"@nuxt/scripts",
+		"@nuxt/image",
+		"@primevue/nuxt-module",
+		"@nuxt/fonts",
+		"@nuxtjs/mdc",
 	],
 	primevue: {
 		components: {
@@ -33,23 +83,21 @@ export default defineNuxtConfig({
 		autoImport: true,
 		options: {
 			ripple: true,
-			inputVariant: 'filled',
+			inputVariant: "filled",
 			theme: {
 				preset: Noir,
 				options: {
-					prefix: 'p',
-					darkModeSelector: '.my-app-dark',
+					prefix: "p",
+					darkModeSelector: ".my-app-dark",
 					cssLayer: {
-						name: 'primevue',
-						order: 'theme, base, primevue',
+						name: "primevue",
+						order: "theme, base, primevue",
 					},
 				},
 			},
 		},
 	},
 	vite: {
-		plugins: [
-			tailwindcss(),
-		],
+		plugins: [tailwindcss()],
 	},
 });

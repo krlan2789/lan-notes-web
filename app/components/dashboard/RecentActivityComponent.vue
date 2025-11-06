@@ -36,11 +36,15 @@ const activities: IActivity[] = [
 
 <template>
 	<div
-		class="bg-surface-0 dark:bg-surface-900 p-6 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col gap-4">
+		class="bg-surface-0 dark:bg-surface-900 p-6 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col gap-4"
+	>
 		<span class="font-medium text-base">Recent Activity</span>
 		<div class="flex flex-col gap-3">
-			<div v-for="(activity, index) in activities" :key="index"
-				class="flex items-center gap-3 p-3 border border-surface-200 dark:border-surface-700 rounded-lg bg-surface-50 dark:bg-surface-800">
+			<div
+				v-for="(activity, index) in activities"
+				:key="index"
+				class="flex items-center gap-3 p-3 border border-surface-200 dark:border-surface-700 rounded-lg bg-surface-50 dark:bg-surface-800"
+			>
 				<i :class="['pi', activity.icon, activity.color, 'text-lg!']"></i>
 				<div class="flex flex-col gap-1">
 					<span class="text-sm font-medium">{{ activity.text }}</span>

@@ -3,11 +3,24 @@
 @import "primeicons/primeicons.css";
 @custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
 
+@layer base {
+	* {
+		font-family: "Roboto Mono", monospace;
+	}
+
+	.font-orbitron {
+		font-family: Orbitron, "Roboto Mono", monospace;
+	}
+}
+
 @layer components {
 	.p-menubar-start {
 		@apply flex flex-row grow w-max;
 	}
+
 	.p-menubar-start > .spacer {
 		@apply flex-1;
 	}
 }
+
+@import "./markdown.css";

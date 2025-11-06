@@ -1,287 +1,31 @@
-import { definePreset, type ColorScale } from '@primeuix/themes';
-import type { LaraBaseDesignTokens } from '@primeuix/themes/lara/base';
-import BaseTheme from '@primeuix/themes/lara';
-import type { Preset } from '@primeuix/themes/types';
-
-const electricIndigo: ColorScale = {
-	50: '#f5f3ff',
-	100: '#ede9fe',
-	200: '#ddd6ff',
-	300: '#c4b4ff',
-	400: '#a684ff',
-	500: '#8e51ff',
-	600: '#7f22fe',
-	700: '#7008e7',
-	800: '#5d0ec0',
-	900: '#4d179a',
-	950: '#2f0d68',
-};
-const twilightLavender: ColorScale = {
-	50: '#f8f5f7',
-	100: '#e9e0e7',
-	200: '#d7c3d1',
-	300: '#c3a3b9',
-	400: '#ae85a2',
-	500: '#9a6a8c',
-	600: '#87577a',
-	700: '#70486D',
-	800: '#5c3a5b',
-	900: '#472c47',
-	950: '#2f1b2f',
-};
-const englishViolet: ColorScale = {
-	50: '#f1eef9',
-	100: '#e3dff3',
-	200: '#d1cce8',
-	300: '#b9b3d4',
-	400: '#9f97bb',
-	500: '#7e7699',
-	600: '#635c7a',
-	700: '#4b4560',
-	800: '#352f45',
-	900: '#1f1a2a',
-	950: '#1A1525',
-};
-const darkSilver: ColorScale = {
-	// 50: '#faf9fb',
-	50: '#f3f1f5',
-	100: '#e6e3ea',
-	200: '#d6d3db',
-	300: '#c2bec9',
-	400: '#a9a5b0',
-	500: '#8f8a96',
-	600: '#6f6b75',
-	700: '#56525b',
-	800: '#3e3a42',
-	900: '#26242a',
-	950: '#121014',
-	// 950: '#18161b',
-	// 950: '#1e1c21',
-};
-const emerald: ColorScale = {
-	50: '#edfdf5',
-	100: '#d1fae5',
-	200: '#a7f3d0',
-	300: '#6ee7b7',
-	400: '#34d399',
-	500: '#10b981',
-	600: '#059669',
-	700: '#047857',
-	800: '#065f46',
-	900: '#064e3b',
-	950: '#022c22'
-};
-const green: ColorScale = {
-	50: '#f0fdf4',
-	100: '#dcfce7',
-	200: '#bbf7d0',
-	300: '#86efac',
-	400: '#4ade80',
-	500: '#22c55e',
-	600: '#16a34a',
-	700: '#15803d',
-	800: '#166534',
-	900: '#14532d',
-	950: '#052e16'
-};
-const lime: ColorScale = {
-	50: '#f7fee7',
-	100: '#ecfccb',
-	200: '#d9f99d',
-	300: '#bef264',
-	400: '#a3e635',
-	500: '#84cc16',
-	600: '#65a30d',
-	700: '#4d7c0f',
-	800: '#3f6212',
-	900: '#365314',
-	950: '#1a2e05'
-};
-const red: ColorScale = {
-	50: '#fef2f2',
-	100: '#fee2e2',
-	200: '#fecaca',
-	300: '#fca5a5',
-	400: '#f87171',
-	500: '#ef4444',
-	600: '#dc2626',
-	700: '#b91c1c',
-	800: '#991b1b',
-	900: '#7f1d1d',
-	950: '#450a0a'
-};
-const orange: ColorScale = {
-	50: '#fff7ed',
-	100: '#ffedd5',
-	200: '#fed7aa',
-	300: '#fdba74',
-	400: '#fb923c',
-	500: '#f97316',
-	600: '#ea580c',
-	700: '#c2410c',
-	800: '#9a3412',
-	900: '#7c2d12',
-	950: '#431407'
-};
-const amber: ColorScale = {
-	50: '#fffbeb',
-	100: '#fef3c7',
-	200: '#fde68a',
-	300: '#fcd34d',
-	400: '#fbbf24',
-	500: '#f59e0b',
-	600: '#d97706',
-	700: '#b45309',
-	800: '#92400e',
-	900: '#78350f',
-	950: '#451a03'
-};
-const yellow: ColorScale = {
-	50: '#fefce8',
-	100: '#fef9c3',
-	200: '#fef08a',
-	300: '#fde047',
-	400: '#facc15',
-	500: '#eab308',
-	600: '#ca8a04',
-	700: '#a16207',
-	800: '#854d0e',
-	900: '#713f12',
-	950: '#422006'
-};
-const teal: ColorScale = {
-	50: '#f0fdfa',
-	100: '#ccfbf1',
-	200: '#99f6e4',
-	300: '#5eead4',
-	400: '#2dd4bf',
-	500: '#14b8a6',
-	600: '#0d9488',
-	700: '#0f766e',
-	800: '#115e59',
-	900: '#134e4a',
-	950: '#042f2e'
-};
-const cyan: ColorScale = {
-	50: '#ecfeff',
-	100: '#cffafe',
-	200: '#a5f3fc',
-	300: '#67e8f9',
-	400: '#22d3ee',
-	500: '#06b6d4',
-	600: '#0891b2',
-	700: '#0e7490',
-	800: '#155e75',
-	900: '#164e63',
-	950: '#083344'
-};
-const sky: ColorScale = {
-	50: '#f0f9ff',
-	100: '#e0f2fe',
-	200: '#bae6fd',
-	300: '#7dd3fc',
-	400: '#38bdf8',
-	500: '#0ea5e9',
-	600: '#0284c7',
-	700: '#0369a1',
-	800: '#075985',
-	900: '#0c4a6e',
-	950: '#082f49'
-};
-const blue: ColorScale = {
-	50: '#eff6ff',
-	100: '#dbeafe',
-	200: '#bfdbfe',
-	300: '#93c5fd',
-	400: '#60a5fa',
-	500: '#3b82f6',
-	600: '#2563eb',
-	700: '#1d4ed8',
-	800: '#1e40af',
-	900: '#1e3a8a',
-	950: '#172554'
-};
-const indigo: ColorScale = {
-	50: '#eef2ff',
-	100: '#e0e7ff',
-	200: '#c7d2fe',
-	300: '#a5b4fc',
-	400: '#818cf8',
-	500: '#6366f1',
-	600: '#4f46e5',
-	700: '#4338ca',
-	800: '#3730a3',
-	900: '#312e81',
-	950: '#1e1b4b'
-};
-const violet: ColorScale = {
-	50: '#f5f3ff',
-	100: '#ede9fe',
-	200: '#ddd6fe',
-	300: '#c4b5fd',
-	400: '#a78bfa',
-	500: '#8b5cf6',
-	600: '#7c3aed',
-	700: '#6d28d9',
-	800: '#5b21b6',
-	900: '#4c1d95',
-	950: '#2e1065'
-};
-const purple: ColorScale = {
-	50: '#faf5ff',
-	100: '#f3e8ff',
-	200: '#e9d5ff',
-	300: '#d8b4fe',
-	400: '#c084fc',
-	500: '#a855f7',
-	600: '#9333ea',
-	700: '#7e22ce',
-	800: '#6b21a8',
-	900: '#581c87',
-	950: '#3b0764'
-};
-const fuchsia: ColorScale = {
-	50: '#fdf4ff',
-	100: '#fae8ff',
-	200: '#f5d0fe',
-	300: '#f0abfc',
-	400: '#e879f9',
-	500: '#d946ef',
-	600: '#c026d3',
-	700: '#a21caf',
-	800: '#86198f',
-	900: '#701a75',
-	950: '#4a044e'
-};
-const pink: ColorScale = {
-	50: '#fdf2f8',
-	100: '#fce7f3',
-	200: '#fbcfe8',
-	300: '#f9a8d4',
-	400: '#f472b6',
-	500: '#ec4899',
-	600: '#db2777',
-	700: '#be185d',
-	800: '#9d174d',
-	900: '#831843',
-	950: '#500724'
-};
-const rose: ColorScale = {
-	50: '#fff1f2',
-	100: '#ffe4e6',
-	200: '#fecdd3',
-	300: '#fda4af',
-	400: '#fb7185',
-	500: '#f43f5e',
-	600: '#e11d48',
-	700: '#be123c',
-	800: '#9f1239',
-	900: '#881337',
-	950: '#4c0519'
-};
+import { definePreset } from "@primeuix/themes";
+import type { LaraBaseDesignTokens } from "@primeuix/themes/lara/base";
+import BaseTheme from "@primeuix/themes/lara";
+import type { Preset } from "@primeuix/themes/types";
+import {
+	englishViolet,
+	darkSilver,
+	charcoal,
+	emerald,
+	green,
+	lime,
+	red,
+	orange,
+	amber,
+	yellow,
+	teal,
+	cyan,
+	sky,
+	blue,
+	indigo,
+	violet,
+	purple,
+	fuchsia,
+	pink,
+	rose,
+} from "./utils/color-scale";
 
 const primary = englishViolet;
-const surface = darkSilver;
 
 const customPreset: Preset<LaraBaseDesignTokens> = {
 	primitive: {
@@ -302,39 +46,79 @@ const customPreset: Preset<LaraBaseDesignTokens> = {
 		fuchsia: fuchsia,
 		pink: pink,
 		rose: rose,
+		neutral: darkSilver,
 	},
 	semantic: {
 		primary: primary,
 		colorScheme: {
 			light: {
-				surface: surface,
-				// primary: {
-				// 	color: primary[600],
-				// 	contrastColor: surface[50],
-				// 	hoverColor: primary[400],
-				// 	activeColor: primary[500],
-				// },
-				// highlight: {
-				// 	background: primary[950],
-				// 	focusBackground: primary[700],
-				// 	color: surface[50],
-				// 	focusColor: surface[50],
-				// },
+				surface: darkSilver,
+				text: {
+					color: darkSilver[700],
+					hoverColor: darkSilver[400],
+					hoverMutedColor: darkSilver[500],
+					mutedColor: darkSilver[600],
+				},
+				primary: {
+					color: primary[700],
+					contrastColor: primary[50],
+					hoverColor: primary[500],
+					activeColor: primary[600],
+				},
 			},
 			dark: {
-				surface: surface,
-				// primary: {
-				// 	color: primary[50],
-				// 	contrastColor: primary[700],
-				// 	hoverColor: primary[200],
-				// 	activeColor: primary[300],
-				// },
-				// highlight: {
-				// 	background: surface[950],
-				// 	focusBackground: surface[700],
-				// 	color: primary[50],
-				// 	focusColor: primary[50],
-				// },
+				surface: charcoal,
+				text: {
+					color: charcoal[700],
+					hoverColor: charcoal[400],
+					hoverMutedColor: charcoal[500],
+					mutedColor: charcoal[600],
+				},
+				primary: {
+					color: primary[200],
+					contrastColor: primary[900],
+					hoverColor: primary[400],
+					activeColor: primary[300],
+				},
+			},
+		},
+	},
+	components: {
+		dataview: {
+			css: "border-0",
+			paginatorBottom: {
+				borderWidth: "0",
+				borderColor: "transparent",
+			},
+			root: {
+				borderColor: "transparent",
+				borderRadius: "0",
+				borderWidth: "0",
+				padding: "0",
+			},
+			footer: {
+				background: "transparent",
+			},
+			content: {
+				background: "transparent",
+			},
+		},
+		paginator: {
+			css: "border-0",
+			root: {
+				padding: "0",
+			},
+			colorScheme: {
+				dark: {
+					root: {
+						background: "transparent",
+					},
+				},
+				light: {
+					root: {
+						background: "transparent",
+					},
+				},
 			},
 		},
 	},

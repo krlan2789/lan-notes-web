@@ -39,7 +39,7 @@ const searchProducts = () => {
 		(product: IProduct) =>
 			product.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
 			product.category.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-			product.status.toLowerCase().includes(searchQuery.value.toLowerCase())
+			product.status.toLowerCase().includes(searchQuery.value.toLowerCase()),
 	);
 	setTimeout(() => {
 		loading.value = false;
@@ -57,25 +57,36 @@ onMounted(() => {
 
 <template>
 	<div
-		class="bg-surface-0 dark:bg-surface-900 p-6 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col gap-4">
+		class="bg-surface-0 dark:bg-surface-900 p-6 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col gap-4"
+	>
 		<div class="flex sm:items-center justify-between mb-4 sm:flex-row flex-col gap-2">
 			<span class="font-medium text-base">Products Overview</span>
 			<IconField class="sm:w-auto w-full">
 				<InputIcon class="pi pi-search" />
-				<InputText v-model="searchQuery" placeholder="Search products..."
-					class="p-inputtext-sm md:w-auto! w-full!" @keyup.enter="searchProducts" />
+				<InputText
+					v-model="searchQuery"
+					placeholder="Search products..."
+					class="p-inputtext-sm md:w-auto! w-full!"
+					@keyup.enter="searchProducts"
+				/>
 			</IconField>
 		</div>
 		<div class="flex flex-col gap-2">
-			<DataTable :value="filteredProducts" v-model:selection="selectedProduct" selectionMode="single"
-				:loading="loading" :rows="5" :pt="{
+			<DataTable
+				:value="filteredProducts"
+				v-model:selection="selectedProduct"
+				selectionMode="single"
+				:loading="loading"
+				:rows="5"
+				:pt="{
 					mask: {
 						class: 'backdrop-blur-sm! bg-surface-0/20! dark:bg-surface-900/20!',
 					},
 					loadingIcon: {
 						class: 'text-primary!',
 					},
-				}">
+				}"
+			>
 				<Column field="name" header="Name" sortable></Column>
 				<Column field="category" header="Category" sortable></Column>
 				<Column field="price" header="Price" sortable>
@@ -83,8 +94,9 @@ onMounted(() => {
 				</Column>
 				<Column field="status" header="Status">
 					<template #body="{ data }">
-						<Tag :severity="data.status === 'In Stock' ? 'success' : data.status === 'Low Stock' ? 'warn' : 'danger'
-							">
+						<Tag
+							:severity="data.status === 'In Stock' ? 'success' : data.status === 'Low Stock' ? 'warn' : 'danger'"
+						>
 							{{ data.status }}
 						</Tag>
 					</template>

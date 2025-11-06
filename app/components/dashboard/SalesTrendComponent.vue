@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { IChartData } from '~/shared/interfaces/IChartData';
-import type { IChartOption } from '~/shared/interfaces/IChartOption';
+import type { IChartData } from "~/utils/interfaces/IChartData";
+import type { IChartOption } from "~/utils/interfaces/IChartOption";
 
 const { primary, surface, isDarkMode } = useLayout();
 
@@ -84,7 +84,8 @@ onMounted(() => {
 
 <template>
 	<div
-		class="bg-surface-0 dark:bg-surface-900 p-6 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col gap-4">
+		class="bg-surface-0 dark:bg-surface-900 p-6 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col gap-4"
+	>
 		<div class="flex flex-col gap-4">
 			<div class="flex items-center justify-between">
 				<span class="font-medium text-base">Sales Trend</span>

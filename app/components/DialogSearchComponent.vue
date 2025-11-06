@@ -1,42 +1,60 @@
 <script lang="ts" setup>
-import EventBus, { EventBusEnum } from '~/shared/contracts/EventBus';
+import { useEventBus } from "~/composables/event-bus";
+import { DialogSearchEventName, type DialogSearchComponentProps } from "./DialogSearchComponent.props";
 
-const position = ref('top');
+const props = defineProps<DialogSearchComponentProps>();
+
 const visible = ref(false);
+const { eventBus } = useEventBus();
 
-const openPosition = () => {
+const showDialog = () => {
 	visible.value = true;
-}
+	if (props.onShow) props.onShow();
+};
 
-const closePosition = () => {
+const hideDialog = () => {
 	visible.value = false;
-}
+	if (props.onHide) props.onHide();
+};
+
+const handleShortcut = (e: KeyboardEvent) => {
+	if (!visible.value && e.ctrlKey && e.key.toLowerCase() === "k") {
+		e.preventDefault();
+		showDialog();
+	}
+};
 
 onMounted(async () => {
-	EventBus.$on(EventBusEnum.ShowDialogSearch, openPosition);
-	EventBus.$on(EventBusEnum.HideDialogSearch, closePosition);
+	eventBus.$on(DialogSearchEventName.OnShow, showDialog);
+	eventBus.$on(DialogSearchEventName.OnHide, hideDialog);
+	window.addEventListener("keydown", handleShortcut);
 });
 onUnmounted(() => {
-	EventBus.$off(EventBusEnum.ShowDialogSearch, openPosition);
-	EventBus.$off(EventBusEnum.HideDialogSearch, closePosition);
+	eventBus.$off(DialogSearchEventName.OnShow, showDialog);
+	eventBus.$off(DialogSearchEventName.OnHide, hideDialog);
+	window.removeEventListener("keydown", handleShortcut);
 });
 </script>
 
 <template>
-	<Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }" :position="position"
-		:modal="true" :draggable="false">
-		<span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
-		<div class="flex items-center gap-4 mb-4">
-			<label for="username" class="font-semibold w-24">Username</label>
-			<InputText id="username" class="flex-auto" autocomplete="off" />
-		</div>
-		<div class="flex items-center gap-4 mb-8">
-			<label for="email" class="font-semibold w-24">Email</label>
-			<InputText id="email" class="flex-auto" autocomplete="off" />
-		</div>
-		<div class="flex justify-end gap-2">
-			<Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-			<Button type="button" label="Save" @click="visible = false"></Button>
-		</div>
+	<Dialog
+		v-model:visible="visible"
+		modal
+		:style="{ width: '50rem' }"
+		class="bg-surface-0 origin-top h-[92vh]"
+		dismissable-mask
+		close-on-escape
+		block-scroll
+		:draggable="false"
+		:breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+	>
+		<template #header>
+			<SearchBarComponent class="w-full mr-2" />
+		</template>
+		<template #closeicon>
+			<!-- <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center relative"></i> -->
+			<kbd class="text-primary-500 font-semibold italic">ESC</kbd>
+		</template>
+		<slot name="result"></slot>
 	</Dialog>
 </template>
