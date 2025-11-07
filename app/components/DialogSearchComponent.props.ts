@@ -6,6 +6,6 @@ export interface DialogSearchComponentProps {
 }
 
 export class DialogSearchEventName {
-	static OnShow: EventBusType = "show-dialog-search-event";
-	static OnHide: EventBusType = "hide-dialog-search-event";
+	static OnShow: EventBusType = 'show-dialog-search-event';
+	static OnHide: EventBusType = 'hide-dialog-search-event';
 }

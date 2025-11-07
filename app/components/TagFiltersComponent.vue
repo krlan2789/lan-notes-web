@@ -17,15 +17,15 @@ const toggleFilter = (tag: string) => {
 	//         filter: Array.from(selectedTags.value).join(','),
 	//     },
 	// });
-	eventBus.$emit(TagFiltersEventName.OnSelected, [...selectedTags.value]);
+	eventBus.$emit(TagFiltersEventName.OnTagSelected, [...selectedTags.value]);
 };
 
 onMounted(() => {
-	if (props.onSelected) eventBus.$on(TagFiltersEventName.OnSelected, props.onSelected);
+	if (props.onSelected) eventBus.$on(TagFiltersEventName.OnTagSelected, props.onSelected);
 });
 
 onUnmounted(() => {
-	if (props.onSelected) eventBus.$off(TagFiltersEventName.OnSelected, props.onSelected);
+	if (props.onSelected) eventBus.$off(TagFiltersEventName.OnTagSelected, props.onSelected);
 });
 </script>
 
@@ -39,7 +39,7 @@ onUnmounted(() => {
 		},
 	}">
 		<template #header>
-			<SearchBarComponent class="w-full mr-2" />
+			<SearchBarComponent class="w-full mr-2" @search="onSearch" />
 		</template>
 		<div class="flex flex-wrap gap-2 justify-center bg-surface-0 w-full text-center">
 			<span v-for="(tag, index) of availableTags" :key="tag">

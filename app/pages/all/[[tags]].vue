@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const route = useRoute();
 const selectedTags = ref(new Set<string>());
+const searchKeyword = ref('');
 if (route.params.tags instanceof Array) {
 	selectedTags.value = new Set<string>(route.params.tags.map((val) => val.toLowerCase()));
 } else if (typeof route.params.tags == "string") {
@@ -10,31 +11,27 @@ if (route.params.tags instanceof Array) {
 }
 selectedTags.value?.delete("");
 
-// const { data } = await useAsyncData(route.path, async () => {
-// 	let query = queryCollection("notes");
-// 	return await query.all();
-// });
-
-// const notes = data.value?.map<INoteContent>((e) => ({
-// 	title: e.title,
-// 	date: e.date,
-// 	description: e.description,
-// 	slug: e.path,
-// 	status: e.status,
-// 	tags: e.tags,
-// }));
 const notes = await loadAllNotes({ path: route.path });
 const tags = [...new Set((notes ?? []).flatMap((n) => n.tags ?? []))];
 
 const filteredNotes = computed(() => {
-	return selectedTags.value.size > 0
-		? (notes ?? []).filter((n) => n.tags?.some((t) => selectedTags.value.has(t)))
+	return selectedTags.value.size > 0 || searchKeyword.value.length > 0
+		? (notes ?? []).filter((n) =>
+			n.status?.toLowerCase().includes(searchKeyword.value) ||
+			n.title?.toLowerCase().includes(searchKeyword.value) ||
+			n.description?.toLowerCase().includes(searchKeyword.value) ||
+			n.date?.toLowerCase().includes(searchKeyword.value) ||
+			n.tags?.some((t) => selectedTags.value.has(t) || t.toLowerCase().includes(searchKeyword.value))
+		)
 		: (notes ?? []);
 });
 
 const onTagSelected = (tags: string[]) => {
-	// console.log(tags);
 	selectedTags.value = new Set(tags);
+};
+
+const onFindByKeyword = (keyword: string) => {
+	searchKeyword.value = keyword.toLowerCase();
 };
 
 const metaTitle = `All Notes - ${appName} | Erlan Kurnia`;
@@ -49,7 +46,8 @@ useSeoMeta({
 
 <template>
 	<div class="container px-6 xl:px-4 mt-14 sm:mt-18">
-		<TagFiltersComponent class="w-full pb-6 pt-12 mx-auto" :tags @selected="onTagSelected" />
-		<ListComponent class="w-full pb-8 mx-auto" :items="filteredNotes" />
+		<TagFiltersComponent class="w-full pb-6 pt-12 mx-auto" :tags @selected="onTagSelected"
+			@search="onFindByKeyword" />
+		<ListComponent class="w-full pb-8 mx-auto" :items="filteredNotes" paginate />
 	</div>
 </template>

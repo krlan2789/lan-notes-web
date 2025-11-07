@@ -15,14 +15,6 @@ const items = ref<MenuItem[]>([
 	// 	icon: 'pi pi-book',
 	// },
 	// {
-	// 	label: 'C# Programming',
-	// 	route: '/c-sharp',
-	// },
-	// {
-	// 	label: 'Unity Game Engine',
-	// 	route: '/unity',
-	// },
-	// {
 	// 	label: 'More',
 	// 	icon: 'pi pi-code',
 	// 	items: [
