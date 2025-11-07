@@ -12,7 +12,6 @@ export default async (
 ): Promise<INoteContent[]> => {
 	const fetchnotes = async (): Promise<NotesCollectionItem[]> => {
 		let query = queryCollection("notes");
-		console.log(query.count());
 		if (filters?.keyword) {
 			const keyword = filters.keyword.toLowerCase();
 			query = query

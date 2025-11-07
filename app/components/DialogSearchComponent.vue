@@ -13,8 +13,8 @@ const { eventBus } = useEventBus();
 watch(searchKeyword, async (keyword) => {
 	if (keyword?.length > 0) {
 		const res = await loadAllNotes({ path: 'live-search', latestFirst: true, keyword });
-		console.log(keyword);
-		console.log(res);
+		// console.log(keyword);
+		// console.log(res);
 		filteredNotes.value = res ?? [];
 	} else {
 		filteredNotes.value = [];
