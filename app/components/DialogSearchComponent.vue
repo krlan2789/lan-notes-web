@@ -2,6 +2,7 @@
 import { useEventBus } from "~/composables/event-bus";
 import { DialogSearchEventName, type DialogSearchComponentProps } from "./DialogSearchComponent.props";
 import type INoteContent from "~/utils/interfaces/INoteContent";
+import { ListItemEventName, type IListItemData } from "./ListItemComponent.props";
 
 const props = defineProps<DialogSearchComponentProps>();
 
@@ -50,14 +51,20 @@ const handleShortcut = (e: KeyboardEvent) => {
 	}
 };
 
+const onResultClicked = (data: IListItemData) => {
+	hideDialog();
+};
+
 onMounted(async () => {
 	eventBus.$on(DialogSearchEventName.OnShow, showDialog);
 	eventBus.$on(DialogSearchEventName.OnHide, hideDialog);
+	eventBus.$on(ListItemEventName.OnItemClicked, onResultClicked);
 	window.addEventListener("keydown", handleShortcut);
 });
 onUnmounted(() => {
 	eventBus.$off(DialogSearchEventName.OnShow, showDialog);
 	eventBus.$off(DialogSearchEventName.OnHide, hideDialog);
+	eventBus.$off(ListItemEventName.OnItemClicked, onResultClicked);
 	window.removeEventListener("keydown", handleShortcut);
 });
 </script>

@@ -1,17 +1,55 @@
 <script lang="ts" setup>
-import type { ListItemComponentProps } from "./ListItemComponent.props";
+import { ListItemEventName, type IListItemData, type ListItemComponentProps } from "./ListItemComponent.props";
 
-defineProps<ListItemComponentProps>();
+const { eventBus } = useEventBus();
+const router = useRouter();
+
+const props = defineProps<ListItemComponentProps>();
+
+const isShortcutAvailable = typeof props.index === 'number' && props.index < 10;
+
+const onClicked = () => {
+	eventBus.$emit(ListItemEventName.OnItemClicked, {
+		slug: props.slug,
+		title: props.title,
+		description: props.description,
+		date: props.date,
+		tags: props.tags,
+	} as IListItemData);
+	router.push(props.slug ? props.slug : '/');
+};
+
+const handleShortcut = (e: KeyboardEvent) => {
+	if (isShortcutAvailable && e.ctrlKey && e.key.toLowerCase() === '' + props.index) {
+		e.preventDefault();
+		onClicked();
+	}
+};
+
+onMounted(() => {
+	if (props.onItemClicked) eventBus.$on(ListItemEventName.OnItemClicked, props.onItemClicked);
+	if (isShortcutAvailable) window.addEventListener("keydown", handleShortcut);
+});
+
+onUnmounted(() => {
+	if (props.onItemClicked) eventBus.$off(ListItemEventName.OnItemClicked, props.onItemClicked);
+	if (isShortcutAvailable) window.removeEventListener("keydown", handleShortcut);
+});
 </script>
 
 <template>
-	<NuxtLink :id="'card' + slug" :to="slug ? slug : '/'">
-		<div class="px-2 mb-2 -mx-2 flex flex-row w-full">
-			<h4 class="text-lg font-semibold text-primary flex-1 grow" v-html="title"></h4>
+	<div :id="'card' + slug" @click="onClicked" link class="cursor-pointer">
+		<div class="relative flex flex-row w-full px-2 mb-2 -mx-2">
+			<div class="flex-1 grow">
+				<h4 class="text-lg font-semibold text-primary w-full h-full" v-html="title"></h4>
+			</div>
 
 			<p v-if="date" class="text-[10px] text-surface-500 opacity-80 leading-loose lg:text-xs w-auto">
 				{{ new Date(date).toDateString() }}
 			</p>
+			<Badge v-if="isShortcutAvailable" severity="info" :value="'CTRL+' + index"
+				class="absolute -top-7 -right-11">
+			</Badge>
 		</div>
 		<p class="text-sm text-surface-500 leading-tight line-clamp-1" v-html="description"></p>
 		<div class="flex flex-row mt-4">
@@ -21,5 +59,5 @@ defineProps<ListItemComponentProps>();
 			</div>
 			<p class="hidden md:block text-sm pl-1 pt-1 align-text-bottom">Read more</p>
 		</div>
-	</NuxtLink>
+	</div>
 </template>

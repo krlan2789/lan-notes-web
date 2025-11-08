@@ -41,7 +41,7 @@ useSeoMeta({
 				<div v-if="localPage.tags && localPage.tags.length > 0"
 					class="flex flex-wrap justify-center w-full gap-4">
 					<template v-for="tag of localPage.tags">
-						<NuxtLink :to="'/notes/' + tag">
+						<NuxtLink :to="'/all/' + tag">
 							<Tag :key="tag" :value="'#' + tag" class="text-xs"
 								:severity="severityOptions[localPage.tags.indexOf(tag) % severityOptions.length]"
 								rounded>

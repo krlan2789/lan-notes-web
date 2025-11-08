@@ -5,18 +5,12 @@ const props = defineProps<TagFiltersComponentProps>();
 const { eventBus } = useEventBus();
 
 const availableTags = ref(new Set<string>(props.tags));
-const selectedTags = ref(new Set<string>());
+const selectedTags = ref(new Set<string>(props.initialSelectedTags ?? []));
 
 const toggleFilter = (tag: string) => {
 	selectedTags.value?.delete("");
 	if (selectedTags.value?.has(tag)) selectedTags.value?.delete(tag);
 	else selectedTags.value?.add(tag);
-	// router.replace({
-	//     name: route.name,
-	//     params: {
-	//         filter: Array.from(selectedTags.value).join(','),
-	//     },
-	// });
 	eventBus.$emit(TagFiltersEventName.OnTagSelected, [...selectedTags.value]);
 };
 
@@ -30,7 +24,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<Panel toggleable collapsed class="border-0 p-0 m-0" :pt="{
+	<Panel toggleable :collapsed="!forceExapand" class="border-0 p-0 m-0" :pt="{
 		header: {
 			class: 'bg-surface-0 p-0 mx-0 mb-6 border-none shadow-none',
 		},

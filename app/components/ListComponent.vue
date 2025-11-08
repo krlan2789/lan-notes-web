@@ -5,7 +5,7 @@ import type { ListComponentProps } from "./ListComponent.props";
 const props = defineProps<ListComponentProps>();
 
 const useLayout = ref(props.layout ?? "list");
-const options = ref(['list', 'grid']);
+// const options = ref(['list', 'grid']);
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const options = ref(['list', 'grid']);
 
 			<template #list="{ items }: { items: INoteContent[] }">
 				<div class="flex flex-col gap-6 lg:gap-10 mb-6 lg:mb-10">
-					<ListItemComponent v-for="(item, index) in items" :key="index"
+					<ListItemComponent v-for="(item, index) in items" :key="index" :index
 						class="p-4 bg-surface-100 flex-[4.7] grow-[4.7] shrink-[4.7] shadow-sm hover:shadow-md transition duration-200 scale-100 hover:scale-[100.5%]"
 						:slug="item.slug ?? '' + item.slug" :title="item.title" :date="item.date"
 						:description="item.description" :tags="item.tags"></ListItemComponent>
@@ -34,7 +34,7 @@ const options = ref(['list', 'grid']);
 			<template #grid="{ items }: { items: INoteContent[] }">
 				<div class="grid grid-cols-12 gap-4 mb-6 lg:mb-10">
 					<div v-for="(item, index) in items" :key="index" class="col-span-12 md:col-span-6 p-2">
-						<ListItemComponent v-for="(item, index) in items" :key="index"
+						<ListItemComponent v-for="(item, index) in items" :key="index" :index
 							class="p-4 bg-surface-100 flex-[4.7] grow-[4.7] shrink-[4.7] shadow-sm hover:shadow-md transition duration-200 scale-100 hover:scale-[100.5%]"
 							:slug="item.slug ?? '' + item.slug" :title="item.title" :date="item.date"
 							:description="item.description" :tags="item.tags"></ListItemComponent>

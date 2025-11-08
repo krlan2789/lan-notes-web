@@ -34,8 +34,8 @@ defineProps<TimelineComponentProps>();
 				<small class="text-surface-500 w-full">{{ new Date("" + item.date).toDateString()
 				}}</small>
 			</template>
-			<template #content="{ item }: { item: INoteContent }">
-				<ListItemComponent :slug="item.slug + ''" :title="item.title" :description="item.description"
+			<template #content="{ item, index }: { item: INoteContent, index: number }">
+				<ListItemComponent :slug="item.slug + ''" :index :title="item.title" :description="item.description"
 					:tags="item.tags"></ListItemComponent>
 			</template>
 		</Timeline>

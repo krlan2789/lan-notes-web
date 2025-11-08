@@ -1,7 +1,9 @@
 import type { EventBusType } from "~/utils/contracts/EventBus";
 
 export interface TagFiltersComponentProps {
-	tags: any[];
+	tags: string[];
+	initialSelectedTags?: Set<string>;
+	forceExapand?: boolean;
 	onSelected?: (tags: string[]) => void;
 	onSearch?: (keyword: string) => void;
 }
