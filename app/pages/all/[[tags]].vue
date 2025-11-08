@@ -64,8 +64,8 @@ useSeoMeta({
 
 <template>
 	<div class="container px-6 xl:px-4 mt-14 sm:mt-18">
-		<TagFiltersComponent class="w-full pb-6 pt-12 mx-auto" :tags :initial-selected-tags="selectedTags"
+		<TagFiltersComponent class="w-full pb-2 pt-12 mx-auto" :tags :initial-selected-tags="selectedTags"
 			:force-exapand="selectedTags.size > 0" @selected="onTagSelected" @search="onFindByKeyword" />
-		<ListComponent class="w-full pb-8 mx-auto" :items="filteredNotes" paginate />
+		<ListComponent class="w-full mb-16 mx-auto" :items="filteredNotes" paginate />
 	</div>
 </template>
