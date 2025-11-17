@@ -5,19 +5,24 @@
 	}
 
 	#markdown h1 {
-		@apply my-4 text-2xl border-b-2 pb-2 border-b-surface-700;
+		@apply font-semibold my-4 text-2xl border-b-2 pb-2 border-b-surface-700;
 	}
 
 	#markdown h2 {
-		@apply my-3 text-xl;
+		@apply font-semibold my-3 text-xl;
 	}
 
 	#markdown h3 {
-		@apply my-3 text-lg;
+		@apply font-semibold my-3 text-lg;
 	}
 
 	#markdown h4 {
-		@apply my-2 text-[1.1rem];
+		@apply font-semibold my-2 text-[1.1rem];
+	}
+
+	#markdown div p > a,
+	#markdown div li > a {
+		@apply text-surface-100 bg-primary rounded-none px-0.5;
 	}
 
 	#markdown ol > *,
