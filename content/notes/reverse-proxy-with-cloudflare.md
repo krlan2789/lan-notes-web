@@ -9,62 +9,60 @@ tags: ["cloudflare","nginx","reverse-proxy","vps"]
 
 - Issues:
 
-    - User IP blocked by ISP in some API endpoint
-    - Too many request (HTTP Code 429)
+    - User IP blocked by ISP in some API endpoint.
+    - Too many request (HTTP Code 429).
 
 ## 1.1. Before using CloudFlare
 
 - Breakdown:
 
-    1. domain.com: DNS -> Server IP (directly)
-    2. Server IP: as Public IP (exposed to the internet)
-    3. Nginx: as reverse proxy, SSL terminator, and request router
-    4. Web Instance: CodeIgniter app / Website
-    5. Persistence: Database or Storage
+    1. domain.com: DNS -> Server IP (directly).
+    2. Server IP: as Public IP (exposed to the internet).
+    3. Nginx: as reverse proxy, SSL terminator, and request router.
+    4. Web Instance: Web App / API.
+    5. Persistence: Database or Storage.
 
 - SSL Management:
 
-    - Create SSL Certificate directly in Server
-    - Add certificate and private key on Server (Nginx)
-    - Renewal handle by AutoSSL/Certbot
+    - Create SSL Certificate directly in Server.
+    - Add certificate and private key on Server (Nginx).
+    - Renewal handle by AutoSSL/Certbot.
 
 - Trade-off:
-    - Server IP exposed to public, directly accessed by User
-    - Vulnerable to IP blocks
+    - Server IP exposed to public, directly accessed by User.
+    - Vulnerable to IP blocks.
 
 ## 1.2. After using CloudFlare
 
 - Breakdown:
 
-    1. domain.com: DNS -> CloudFlare IP
-    2. Cloudflare Edge IP: as Public IP (exposed to the internet)
-    3. CloudFlare Proxy: a reverse proxy, SSL terminator
-    4. Server IP: receive request from CloudFlare, not directly from User
-    5. Nginx: only receive request from CloudFlare and request router
-    6. Web Instance: CodeIgniter app / Website
-    7. Persistence: Database or Storage
+    1. domain.com: DNS -> CloudFlare IP.
+    2. Cloudflare Edge IP: as Public IP (exposed to the internet).
+    3. CloudFlare Proxy: a reverse proxy, SSL terminator.
+    4. Server IP: receive request from CloudFlare, not directly from User.
+    5. Nginx: only receive request from CloudFlare and as request router.
+    6. Web Instance: Web App / API.
+    7. Persistence: Database or Storage.
 
 - SSL Management:
 
-    - Create SSL Certificate in Cloudflare dashboard
-    - Install the certificate and private key on Server (Nginx)
-    - Set SSL mode to Full (Strict) in Cloudflare
-    - Renewal handle by CloudFlare
+    - Create SSL Certificate in Cloudflare dashboard.
+    - Install the certificate and private key on Server (Nginx).
+    - Set SSL mode to Full (Strict) in Cloudflare.
+    - Renewal handle by CloudFlare.
 
 - Trade-off:
-	- Latency might increase (can resolve by using CloudFlare Edge Caching for static assets)
-	- More system configuration and monitoring
+	- Latency might increase (can resolve by using CloudFlare Edge Caching for static assets).
+	- More system configuration and monitoring.
 
 ## 1.3. Summary
 
-- Summary:
-
-	- Cloudflare hides Server IP, adds DDoS/WAF protection, and edge caching.
-	- Handle SSL Certificate registration and/or renewal
-	- Restrict incoming request to server only from Cloudflare.
-	- Trade-offs:
-		- Small latency increase
-		- More configuration/monitoring
+- Cloudflare hides Server IP, adds DDoS protection, and edge caching.
+- Handle SSL Certificate registration and/or renewal.
+- Restrict incoming request to server only from Cloudflare.
+- Trade-offs:
+	- Small latency increase.
+	- More configuration/monitoring.
 
 - Table
 
@@ -77,4 +75,4 @@ tags: ["cloudflare","nginx","reverse-proxy","vps"]
 
 - References
 
-	See [this visual workflow](./resources/cloudflare_reverse_proxy.pdf)
+	See [this visual workflow](./resources/cloudflare_reverse_proxy.pdf).
