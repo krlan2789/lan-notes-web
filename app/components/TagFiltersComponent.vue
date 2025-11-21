@@ -35,6 +35,12 @@ onUnmounted(() => {
 		<template #header>
 			<SearchBarComponent class="w-full mr-2" @search="onSearch" />
 		</template>
+		<template #toggleicon="{ collapsed }">
+			<span :class="{
+				'pi pi-filter': collapsed,
+				'pi pi-filter-fill': !collapsed,
+			}"></span>
+		</template>
 		<div class="flex flex-wrap gap-2 justify-center bg-surface-0 w-full text-center">
 			<span v-for="(tag, index) of availableTags" :key="tag">
 				<input type="checkbox" :id="'tag-' + tag + '-' + index" class="hidden peer" :value="tag"

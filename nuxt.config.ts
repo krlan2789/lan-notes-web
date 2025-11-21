@@ -18,6 +18,9 @@ export default defineNuxtConfig({
 			],
 		},
 	},
+	routeRules: {
+		'/notes/**': { redirect: '/**', },
+	},
 	pages: {
 		pattern: ["**/*.vue", "!**/components/**"],
 	},
@@ -52,11 +55,6 @@ export default defineNuxtConfig({
 			},
 		},
 	},
-	// mdc: {
-	// 	components: {
-	// 		prose: false,
-	// 	},
-	// },
 	components: [
 		"~/components",
 		{
@@ -68,7 +66,7 @@ export default defineNuxtConfig({
 	modules: [
 		"@nuxt/eslint",
 		"@nuxt/content",
-		"@nuxt/ui",
+		// "@nuxt/ui",
 		"@nuxt/scripts",
 		"@nuxt/image",
 		"@primevue/nuxt-module",
@@ -76,7 +74,7 @@ export default defineNuxtConfig({
 	],
 	primevue: {
 		components: {
-			exclude: ['editor', 'toast'],
+			exclude: ['editor', 'toast', 'usetoast'],
 		},
 		usePrimeVue: true,
 		autoImport: true,

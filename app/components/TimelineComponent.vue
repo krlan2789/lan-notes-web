@@ -24,7 +24,7 @@ defineProps<TimelineComponentProps>();
 				class: 'pb-12',
 			},
 			eventContent: {
-				class: 'mb-8 ml-4 lg:mb-12 lg:ml-12 p-2 lg:p-4 bg-surface-100 7xl:flex-[4.7] 7xl:grow-[4.7] 7xl:shrink-[4.7] shadow-sm hover:shadow-md transition duration-200 scale-100 hover:scale-[100.5%]',
+				class: 'mb-8 ml-4 lg:mb-12 lg:ml-8 p-0 7xl:flex-[4.7] 7xl:grow-[4.7] 7xl:shrink-[4.7]',
 			},
 			eventOpposite: {
 				class: '-translate-y-1 w-full min-w-8 max-w-16 sm:min-w-20 sm:max-w-28 xl:min-w-32 xl:max-w-40',

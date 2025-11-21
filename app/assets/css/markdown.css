@@ -39,7 +39,7 @@
 	}
 
 	#markdown pre:has(> code) {
-		@apply w-full block overflow-x-auto rounded-none p-4 pr-8 bg-neutral-800;
+		@apply w-full block overflow-x-auto rounded-none my-4 p-4 pr-8 text-surface-200 dark:text-surface-900 bg-neutral-800;
 	}
 
 	#markdown #markdown-content ul > li > img,
