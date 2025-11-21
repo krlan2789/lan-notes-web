@@ -34,10 +34,9 @@ export default async (
 		title: e.title,
 		date: e.date,
 		description: e.description,
-		slug: e.path,
+		slug: e.path.replace('notes/', ''),
 		status: e.status,
 		tags: e.tags,
 	}));
-	// console.log(notes);
 	return notes ?? [];
 }

@@ -187,4 +187,4 @@ pm2 startup systemd
 
 By following these steps, you've set up a secure, WebSocket service on your own VPS, accessible via a custom subdomain and protected with SSL. With Nginx handling SSL termination and proxying, and PM2 managing your Node.js process, your real-time application is ready for reliable, secure operation.
 
-See [this note](/note/secure-websocket-service-on-vps-using-apache) if you prefer using Apache instead of Nginx.
+See [this note](/secure-websocket-service-on-vps-using-apache) if you prefer using Apache instead of Nginx.

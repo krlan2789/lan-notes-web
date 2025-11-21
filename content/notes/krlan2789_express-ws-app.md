@@ -131,7 +131,7 @@ $ npm run test:ws
 
 ## Deploying the Application
 
-Deploying the application to a VPS or cloud hosting environment is straightforward. For detailed instructions, refer to [this deployment note](https://erlankurnia.github.io/note/2/WebSocket%20Service%20on%20VPS).
+Deploying the application to a VPS or cloud hosting environment is straightforward. For detailed instructions, refer to [this (Nginx)](/secure-websocket-service-on-vps-using-nginx) or [this (Apache)](/secure-websocket-service-on-vps-using-apache) deployment notes.
 
 ## Conclusion
 
