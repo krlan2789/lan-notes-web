@@ -64,15 +64,15 @@ tags: ["cloudflare","nginx","reverse-proxy","vps"]
 	- Small latency increase.
 	- More configuration/monitoring.
 
-- Table
+### 1.3.1. Table
 
-	| Layer     | Before                          | After                        |
-	| --------- | ------------------------------- | ---------------------------- |
-	| Public IP | Server IP                       | Cloudflare Edge -> Server IP |
-	| SSL       | Nginx Handles (AutoSSL/Certbot) | Cloudflare SSL               |
-	| Caching   | Nginx Only                      | Cloudflare Edge IP + Nginx   |
-	| Security  | Nginx Rules                     | Cloudflare Firewall          |
+| Layer     | Before                          | After                        |
+| --------- | ------------------------------- | ---------------------------- |
+| Public IP | Server IP                       | Cloudflare Edge -> Server IP |
+| SSL       | Nginx Handles (AutoSSL/Certbot) | Cloudflare SSL               |
+| Caching   | Nginx Only                      | Cloudflare Edge IP + Nginx   |
+| Security  | Nginx Rules                     | Cloudflare Firewall          |
 
-- References
+### 1.3.2. References
 
-	See [this visual workflow](./resources/cloudflare_reverse_proxy.pdf).
+See <a href="./files/reverse-proxy-with-cloudflare/cloudflare_reverse_proxy.pdf" target="_blank">this visual workflow</a>.

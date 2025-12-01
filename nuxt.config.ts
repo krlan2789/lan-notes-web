@@ -19,12 +19,15 @@ export default defineNuxtConfig({
 		},
 	},
 	routeRules: {
-		'/notes/**': { redirect: '/**', },
+		'/img/**': { static: true },
+		'/files/**': { static: true },
+		// '/notes/**': { redirect: '/**', },
 	},
 	pages: {
 		pattern: ["**/*.vue", "!**/components/**"],
 	},
 	content: {
+		// documentDriven: true,
 		build: {
 			markdown: {
 				toc: {

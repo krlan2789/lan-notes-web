@@ -303,24 +303,24 @@ podman compose up -d
 
 1. Created Containers
 
-	<img style="max-width: 960px; width: 100%; height: auto;" src="/notes/screenshots/krlan2789_containerized-monitoring-services/0.png" />
+	<img style="max-width: 960px; width: 100%; height: auto;" src="./img/krlan2789_containerized-monitoring-services/0.png" />
 
 2. Docker/Podman Stats
 
-	<img style="max-width: 960px; width: 100%; height: auto;" src="/notes/screenshots/krlan2789_containerized-monitoring-services/1.png" />
+	<img style="max-width: 960px; width: 100%; height: auto;" src="./img/krlan2789_containerized-monitoring-services/1.png" />
 
 3. Container CPU and Memory Usage (Provided by Prometheus + cAdvisor)
 
-	<img style="max-width: 960px; width: 100%; height: auto;" src="/notes/screenshots/krlan2789_containerized-monitoring-services/2.png" />
+	<img style="max-width: 960px; width: 100%; height: auto;" src="./img/krlan2789_containerized-monitoring-services/2.png" />
 
 4. Instance Resource Usage (Provided by Prometheus + Node Exporter)
 
-	<img style="max-width: 960px; width: 100%; height: auto;" src="/notes/screenshots/krlan2789_containerized-monitoring-services/3.png" />
+	<img style="max-width: 960px; width: 100%; height: auto;" src="./img/krlan2789_containerized-monitoring-services/3.png" />
 
 5. App Metrics (Provided by Prometheus + WebSocket Service)
 
-	<img style="max-width: 960px; width: 100%; height: auto;" src="/notes/screenshots/krlan2789_containerized-monitoring-services/4.png" />
+	<img style="max-width: 960px; width: 100%; height: auto;" src="./img/krlan2789_containerized-monitoring-services/4.png" />
 
 6. Alert Rules (Provided by Prometheus + Alert Manager)
 
-	<img style="max-width: 960px; width: 100%; height: auto;" src="/notes/screenshots/krlan2789_containerized-monitoring-services/5.png" />
+	<img style="max-width: 960px; width: 100%; height: auto;" src="./img/krlan2789_containerized-monitoring-services/5.png" />
