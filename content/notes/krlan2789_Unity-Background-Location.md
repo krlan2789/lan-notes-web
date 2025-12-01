@@ -37,19 +37,19 @@ Add the Live Location plugin to your Unity project:
 3. Select **Add package from git URL**.
 4. Paste the following URL: `https://github.com/krlan2789/Unity-LAN-LiveLocation-Plugin.git`.
 
-<img class="use-github-assets" src="./notes/screenshots/krlan2789_unity-background-location/Add_package_from_git_url.png" height="auto" width="640px" />
+<img class="use-github-assets" src="/notes/screenshots/krlan2789_unity-background-location/Add_package_from_git_url.png" height="auto" width="640px" />
 
 ### Step 3: Set Minimum API Level
 
 Ensure the minimum API level is set to **API Level 26**.
 
-<img class="use-github-assets" src="./notes/screenshots/krlan2789_unity-background-location/Min_Android_API_Level.png" height="auto" width="640px" />
+<img class="use-github-assets" src="/notes/screenshots/krlan2789_unity-background-location/Min_Android_API_Level.png" height="auto" width="640px" />
 
 ### Step 4: Verify Build Settings
 
 Check and configure the required build settings.
 
-<img class="use-github-assets" src="./notes/screenshots/krlan2789_unity-background-location/Build_Settings.png" height="auto" width="640px" />
+<img class="use-github-assets" src="/notes/screenshots/krlan2789_unity-background-location/Build_Settings.png" height="auto" width="640px" />
 
 ### Step 5: Update AndroidManifest.xml
 
@@ -117,15 +117,15 @@ android.suppressUnsupportedCompileSdk=34
 
 ### `Custom Gradle Properties Template` :
 
-<img class="use-github-assets" src="./notes/screenshots/krlan2789_unity-background-location/Error_gradleproperties_unchecked_popup.png" height="auto" width="640px" />
+<img class="use-github-assets" src="/notes/screenshots/krlan2789_unity-background-location/Error_gradleproperties_unchecked_popup.png" height="auto" width="640px" />
 
-<img class="use-github-assets" src="./notes/screenshots/krlan2789_unity-background-location/Error_gradleproperties_unchecked.png" height="auto" width="640px" />
+<img class="use-github-assets" src="/notes/screenshots/krlan2789_unity-background-location/Error_gradleproperties_unchecked.png" height="auto" width="640px" />
 
 ### `Custom Launcher Gradle` and `Custom Main Gradle` :
 
-<img class="use-github-assets" src="./notes/screenshots/krlan2789_unity-background-location/Error_manifestgradle_unchecked_popup.png" height="auto" width="640px" />
+<img class="use-github-assets" src="/notes/screenshots/krlan2789_unity-background-location/Error_manifestgradle_unchecked_popup.png" height="auto" width="640px" />
 
-<img class="use-github-assets" src="./notes/screenshots/krlan2789_unity-background-location/Error_manifestgradle_unchecked.png" height="auto" width="640px" />
+<img class="use-github-assets" src="/notes/screenshots/krlan2789_unity-background-location/Error_manifestgradle_unchecked.png" height="auto" width="640px" />
 
 ---
 
