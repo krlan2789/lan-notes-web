@@ -35,7 +35,12 @@ defineProps<TimelineComponentProps>();
 
 		}">
 			<template #opposite="{ item }: { item: INoteContent }">
-				<small class="text-surface-500 w-full">{{ new Date("" + item.date).toDateString()
+				<small class="text-surface-500 w-full">{{ new Date("" + item.date).toLocaleDateString("en-ID", {
+					weekday: "short",
+					day: "numeric",
+					month: "short",
+					year: "numeric",
+				})
 				}}</small>
 			</template>
 			<template #content="{ item, index }: { item: INoteContent, index: number }">

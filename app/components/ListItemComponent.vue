@@ -52,7 +52,7 @@ onUnmounted(() => {
 		<p class="text-sm text-surface-500 leading-tight line-clamp-1" v-html="description"></p>
 		<div class="flex flex-row mt-4">
 			<div v-if="tags" class="flex-1 grow flex flex-wrap gap-2">
-				<Tag v-for="tag in tags" :key="tag" :value="'#' + tag" class="text-xs"
+				<Tag v-for="tag in tags" :key="tag" :value="'#' + tag" class="text-xs font-normal"
 					:severity="severityOptions[tags.indexOf(tag) % severityOptions.length]"></Tag>
 			</div>
 			<p class="hidden md:block text-sm pl-1 pt-1 align-text-bottom">Read more</p>

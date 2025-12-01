@@ -5,19 +5,23 @@
 	}
 
 	#markdown h1 {
-		@apply font-semibold my-4 text-2xl border-b-2 pb-2 border-b-surface-700;
+		@apply font-bold mt-10 mb-4 text-2xl border-b-2 pb-2 border-b-surface-700;
 	}
 
 	#markdown h2 {
-		@apply font-semibold my-3 text-xl;
+		@apply font-semibold mt-8 mb-3 text-xl;
 	}
 
 	#markdown h3 {
-		@apply font-semibold my-3 text-lg;
+		@apply font-semibold mt-7 mb-3 text-lg;
 	}
 
 	#markdown h4 {
-		@apply font-semibold my-2 text-[1.1rem];
+		@apply font-semibold mt-5 mb-2 text-[1.05rem];
+	}
+
+	#markdown h5 {
+		@apply font-medium mt-4 mb-1.5 text-[1.025rem];
 	}
 
 	#markdown div p > a,
@@ -39,7 +43,11 @@
 	}
 
 	#markdown pre:has(> code) {
-		@apply w-full block overflow-x-auto rounded-none my-4 p-4 pr-8 text-surface-200 dark:text-surface-900 bg-neutral-800;
+		@apply w-full block overflow-x-auto rounded-none my-4 p-8 text-surface-200 dark:text-surface-900 bg-neutral-800;
+	}
+
+	#markdown pre > code > span {
+		@apply min-w-max pr-8;
 	}
 
 	#markdown #markdown-content ul > li > img,

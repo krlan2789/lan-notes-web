@@ -36,7 +36,7 @@ useSeoMeta({
 
 <template>
 	<section v-if="localPage" id="markdown" class="container flex flex-col mb-16 mt-14 sm:mt-18 px-6 xl:px-4">
-		<div id="markdown-header" class="flex flex-col gap-2 w-full px-0 py-4">
+		<div id="markdown-header" class="flex flex-col gap-2 w-full px-0 pt-4">
 			<h1 v-if="localPage.title" class="w-full text-4xl font-semibold" v-html="localPage.title"></h1>
 			<div v-if="localPage.tags && localPage.tags.length > 0" class="flex flex-wrap justify-center w-full gap-4">
 				<template v-for="tag of localPage.tags">
