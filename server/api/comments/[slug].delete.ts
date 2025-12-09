@@ -2,7 +2,7 @@ import { adminDb } from "../../libs/firebase-admin";
 import DeleteCommentDto from "~~/server/dtos/DeleteCommentDto";
 
 export default defineEventHandler(async (event) => {
-  const uid = event.context.auth?.uid;
+  // const uid = event.context.auth?.uid;
 
   const slug = getRouterParam(event, "slug");
   const body = await readBody<DeleteCommentDto>(event);
