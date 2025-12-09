@@ -62,7 +62,7 @@ useSeoMeta({
 			<template #default>
 				<span class="pi pi-comments"></span>
 				<span class="text-xs italic">
-					CTRL+Space
+					CTRL+/
 				</span>
 			</template>
 		</Button>

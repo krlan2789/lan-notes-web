@@ -74,7 +74,7 @@ const hideDialog = () => {
 const handleShortcut = async (e: KeyboardEvent) => {
   if (sendingComment.value) return;
   // console.log(e.key);
-  if (!visible.value && e.ctrlKey && e.key.toLowerCase() === " ") {
+  if (!visible.value && e.ctrlKey && e.key === "/") {
     e.preventDefault();
     showDialog();
   }
