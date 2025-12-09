@@ -23,7 +23,7 @@ import {
 	fuchsia,
 	pink,
 	rose,
-} from "./utils/color-scale";
+} from "./app/utils/color-scale";
 
 const primary = englishViolet;
 

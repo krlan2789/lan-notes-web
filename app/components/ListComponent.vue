@@ -12,16 +12,6 @@ const useLayout = ref(props.layout ?? "list");
 	<div class="card">
 		<DataView :value="items" :layout="useLayout" :paginator="paginate" :rows="8" :alwaysShowPaginator="paginate"
 			class="bg-surface-0">
-			<!-- <template #header>
-				<div class="flex justify-end">
-					<SelectButton v-model="layout" :options="options" :allowEmpty="false">
-						<template #option="{ option }">
-							<i :class="[option === 'list' ? 'pi pi-bars' : 'pi pi-table']"></i>
-						</template>
-</SelectButton>
-</div>
-</template> -->
-
 			<template #list="{ items }: { items: INoteContent[] }">
 				<div class="flex flex-col gap-6 py-4 lg:gap-10 mb-6 lg:mb-10">
 					<ListItemComponent v-for="(item, index) in items" :key="index" :index
@@ -58,25 +48,6 @@ const useLayout = ref(props.layout ?? "list");
 						:disabled="page === (pageCount ?? 0) - 1"></Button>
 				</div>
 			</template>
-			<!-- 
-				<Paginator :rows="8" :totalRecords="items.length" :pt="{
-					root: {
-						class: 'bg-surface-0',
-					},
-					current: {
-						class: 'bg-surface-0',
-					},
-					content: {
-						class: 'bg-surface-0',
-					},
-					paginatorContainer: {
-						class: 'bg-surface-0',
-					},
-				}">
-					<template #container>
-					</template>
-				</Paginator>
-			-->
 		</DataView>
 	</div>
 </template>

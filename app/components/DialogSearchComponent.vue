@@ -27,9 +27,7 @@ let timer = 0;
 const onFindByKeyword = (keyword: string) => {
 	// console.log(keyword);
 	if (timer > 0) clearTimeout(timer);
-	timer = setTimeout(() => {
-		searchKeyword.value = keyword.toLowerCase();
-	}, 500);
+	timer = setTimeout(searchKeyword.value = keyword.toLowerCase(), 500);
 };
 
 const showDialog = () => {

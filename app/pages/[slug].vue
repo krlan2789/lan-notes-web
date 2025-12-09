@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { DialogCommentEventName } from '~/components/DialogCommentComponent.props';
+
 // import type { ContentNavigationItem } from "@nuxt/content";
 // import { findPageHeadline } from "@nuxt/content/utils";
 
@@ -7,6 +9,7 @@ definePageMeta({
 });
 
 const route = useRoute();
+const { eventBus } = useEventBus();
 
 const { data: localPage } = await useAsyncData(route.path, async () => {
 	console.log(route.path);
@@ -22,7 +25,7 @@ if (!localPage.value) {
 // 	});
 // });
 
-const metaTitle = `${localPage.value.title} - ${appName} | Erlan Kurnia`;
+const metaTitle = `${localPage.value.title} - ${appTitle}`;
 const metaDesc = localPage.value.description;
 useSeoMeta({
 	title: metaTitle,
@@ -52,5 +55,16 @@ useSeoMeta({
 		<div id="markdown-content">
 			<ContentRenderer v-if="localPage" :value="localPage" />
 		</div>
+		<DialogCommentComponent />
 	</section>
+	<div class="fixed bottom-6 right-6 xl:right-1/2 xl:translate-x-156 w-auto">
+		<Button class="w-auto" size="small" aria-label="Comment" @click="eventBus.$emit(DialogCommentEventName.OnShow)">
+			<template #default>
+				<span class="pi pi-comments"></span>
+				<span class="text-xs italic">
+					CTRL+Space
+				</span>
+			</template>
+		</Button>
+	</div>
 </template>

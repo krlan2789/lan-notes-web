@@ -2,7 +2,7 @@
 const targetComponent = ref<Element | ComponentPublicInstance | null>(null);
 
 const notes = await loadAllNotes({ latestFirst: true });
-const metaTitle = appName + " | Erlan Kurnia";
+const metaTitle = appTitle;
 const metaDesc = appTagline;
 useSeoMeta({
 	title: metaTitle,

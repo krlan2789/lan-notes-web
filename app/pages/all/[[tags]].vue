@@ -52,7 +52,7 @@ const onFindByKeyword = (keyword: string) => {
 	searchKeyword.value = keyword.toLowerCase();
 };
 
-const metaTitle = `All Notes - ${appName} | Erlan Kurnia`;
+const metaTitle = `All Notes - ${appTitle}`;
 const metaDesc = "Erlan Kurnia's personal notes in programming world";
 useSeoMeta({
 	title: metaTitle,
