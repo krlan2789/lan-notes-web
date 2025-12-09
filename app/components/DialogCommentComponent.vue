@@ -166,7 +166,11 @@ onUnmounted(() => {
                   </div>
                   <span class="size-1 my-auto bg-primary"></span>
                   <p v-if="item.createdAt" class="text-[10px] text-surface-600 leading-[1.6rem] lg:text-[11px] w-auto">
-                    {{ new Date(item.createdAt).toDateString() }}
+                    {{ new Date(item.createdAt).toLocaleDateString("en-ID", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    }) }}
                   </p>
                   <div class="flex-1 grow"></div>
                 </div>
