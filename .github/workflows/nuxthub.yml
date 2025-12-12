@@ -18,7 +18,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: 'npm'
 
       - name: Install dependencies
@@ -31,3 +31,4 @@ jobs:
         uses: nuxt-hub/action@v2
         with:
           project-key: lan-notes-web-k2sr
+          output-directory: dist
