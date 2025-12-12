@@ -81,7 +81,7 @@ export default defineNuxtConfig({
 		"@nuxt/content",
 		// "@nuxt/ui",
 		"@nuxt/scripts",
-		"@nuxt/image",
+		// "@nuxt/image",
 		"@primevue/nuxt-module",
 		"@nuxt/fonts",
 	],
@@ -113,5 +113,8 @@ export default defineNuxtConfig({
 		build: {
 			sourcemap: true,
 		},
+	},
+	nitro: {
+		preset: 'cloudflare-pages'
 	},
 });
