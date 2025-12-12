@@ -114,7 +114,4 @@ export default defineNuxtConfig({
 			sourcemap: true,
 		},
 	},
-	nitro: {
-		preset: 'cloudflare-pages'
-	},
 });
