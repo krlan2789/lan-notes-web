@@ -3,7 +3,7 @@ import type IComment from "~/utils/models/IComment";
 import { DialogCommentEventName, type DialogCommentComponentProps } from "./DialogCommentComponent.props";
 
 const props = defineProps<DialogCommentComponentProps>();
-const { userToken, userNickname, updateNickname } = await useAnonAuth();
+const { userToken, userNickname } = await useAnonAuth();
 const { eventBus } = useEventBus();
 
 const title = ref("");
@@ -19,12 +19,7 @@ const comments = ref<IComment[]>([]);
 const fetchComments = async () => {
   loading.value = true;
   if (!slug.value) return;
-  const res = await $fetch(`/api/comments/${slug.value}`, {
-    method: "GET",
-    headers: { Authorization: `Bearer ${userToken}` },
-  });
-  // console.log(res);
-  comments.value = res as IComment[];
+  comments.value = await fetchCommentsByNoteSlug(slug.value);
   loading.value = false;
 };
 
@@ -32,20 +27,9 @@ const submitComment = async () => {
   sendingComment.value = true;
 
   try {
-    if (userNickname == null) {
-      await updateNickname(nickname.value);
-    }
-
+    // if (userNickname == null) await updateUserNickname(nickname.value);
     if (!content.value || !nickname.value || !userToken) return;
-
-    await $fetch(`/api/comments/${slug.value}`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${userToken}` },
-      body: { nickname: nickname.value, content: content.value },
-    }).catch(res => {
-      console.error(res);
-    });
-
+    await createCommentByNoteSlug(slug.value, content.value, nickname.value);
     content.value = "";
 
     await fetchComments();
@@ -81,7 +65,7 @@ const handleShortcut = async (e: KeyboardEvent) => {
 
   if (visible.value && e.ctrlKey && e.key.toLowerCase() === "enter" && !sendingComment.value) {
     e.preventDefault();
-    console.log('Sending comment..');
+    // console.log('Sending comment..');
     await submitComment();
   }
 };

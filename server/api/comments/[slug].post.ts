@@ -1,27 +1,24 @@
+import BaseResponseDto from "~~/server/dtos/BaseResponseDto";
 import CreateCommentDto from "~~/server/dtos/CreateCommentDto";
-import { adminDb } from "../../libs/firebase-admin";
+import { createComment } from "~~/server/libs/firebase-rest";
+import NoteCommentModel from "~~/server/models/NoteCommentModel";
+// import { adminDb } from "../../libs/firebase-admin";
 
-export default defineEventHandler(async (event) => {
-    const uid = event.context.auth?.uid;
+export default defineEventHandler(async (event): Promise<BaseResponseDto> => {
+    const host = getRequestURL(event).host;
+    // const userId = event.context.auth?.userId;
+    // const userToken = event.context.auth?.userToken;
 
     const slug = getRouterParam(event, "slug");
     const body = await readBody<CreateCommentDto>(event);
 
-    const data = {
-        noteSlug: slug,
-        userId: uid,
-        content: body.content,
-        nickname: body.nickname,
-        createdAt: new Date().toISOString(),
+    let res: BaseResponseDto = {
+        statusCode: 400,
     };
-    // console.log(data);
 
-    if (!slug || !body.content || !body.nickname || !uid) {
-        const res = {
-            statusCode: 400,
-            statusMessage: "Invalid some params request",
-            errors: [] as {}[],
-        };
+    if (!slug || !body.content || !body.nickname /*|| !userId*/) {
+        res.statusMessage = "Invalid some params request";
+        res.errors = [];
         if (!slug) {
             res.errors.push({
                 field: 'slug',
@@ -40,16 +37,26 @@ export default defineEventHandler(async (event) => {
                 message: 'Nickname is empty',
             });
         }
-        if (!uid) {
-            res.errors.push({
-                field: 'uid',
-                message: 'UID is empty',
-            });
-        }
+        // if (!userId) {
+        //     res.errors.push({
+        //         field: 'uid',
+        //         message: 'UID is empty',
+        //     });
+        // }
         throw createError(res);
     }
 
-    await adminDb.collection("notes").doc(slug).collection("comments").doc().set(data);
+    const data: NoteCommentModel = {
+        noteSlug: slug ?? '',
+        // userId: userId,
+        content: body.content,
+        nickname: body.nickname,
+        createdAt: new Date().toISOString(),
+    };
+    // console.log(data);
 
-    return { success: true };
+    await createComment(host, 'userToken', data);
+    res.statusCode = 200;
+    res.statusMessage = 'Success create comment';
+    return res;
 });

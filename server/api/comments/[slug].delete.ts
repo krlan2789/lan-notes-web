@@ -1,8 +1,8 @@
-import { adminDb } from "../../libs/firebase-admin";
+// import { adminDb } from "../../libs/firebase-admin";
 import DeleteCommentDto from "~~/server/dtos/DeleteCommentDto";
 
 export default defineEventHandler(async (event) => {
-  // const uid = event.context.auth?.uid;
+  // const userToken = event.context.auth?.userToken;
 
   const slug = getRouterParam(event, "slug");
   const body = await readBody<DeleteCommentDto>(event);
@@ -13,8 +13,6 @@ export default defineEventHandler(async (event) => {
       statusMessage: "Invalid request",
     });
   }
-
-  await adminDb.collection("notes").doc(slug).collection("comments").doc(body.id).delete();
 
   return { success: true };
 });

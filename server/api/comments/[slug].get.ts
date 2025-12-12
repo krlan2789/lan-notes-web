@@ -1,20 +1,20 @@
-import { adminDb } from "../../libs/firebase-admin";
+import { getComments } from "../../libs/firebase-rest";
 import IComment from "../../../app/utils/models/IComment";
+import BaseResponseDto from "~~/server/dtos/BaseResponseDto";
 
 export default defineEventHandler(async (event) => {
-	// const uid = event.context.auth?.uid;
-
+	const host = getRequestURL(event).host;
+	// const userToken = '' + event.context.auth?.userToken;
 	const slug = getRouterParam(event, "slug");
+	let res: BaseResponseDto = {
+		statusCode: 400,
+	};
 	if (!slug) {
-		throw createError({
-			statusCode: 400,
-			statusMessage: "Slug parameter is required",
-		});
+		res.statusMessage = "Slug parameter is required";
+		throw createError(res);
 	}
 
-	const res = await adminDb.collection("notes").doc(slug).collection("comments").get();
-	const docs = res.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as IComment);
-	docs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-	// console.log(docs);
-	return docs;
+	const docs = await getComments(host, 'userToken', slug);
+	res.data = docs as IComment[];
+	return res;
 });

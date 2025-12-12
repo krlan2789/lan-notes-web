@@ -1,26 +1,18 @@
-import { signInAnonymously, updateProfile } from "firebase/auth";
+import type IUserAuth from "~/utils/models/IUserAuth";
 
 export const useAnonAuth = async () => {
-  const { firebaseAuth } = useFirebaseClient();
-  await signInAnonymously(firebaseAuth);
-
-  const updateNickname = async (newVal: string) => {
-    if (firebaseAuth.currentUser) {
-      await updateProfile(firebaseAuth.currentUser, {
-        displayName: newVal,
-      });
+  const res = await $fetch<{ data: IUserAuth }>(`/api/auth/anon`, {
+    method: "POST",
+    headers: {
+      Accept: 'applications/json',
     }
-  };
+  });
 
-  const userId = firebaseAuth.currentUser?.uid || "";
-  const userToken = await firebaseAuth.currentUser?.getIdToken() || "";
-  const userNickname = firebaseAuth.currentUser?.displayName || null;
-  // console.log(JSON.stringify(firebaseAuth.currentUser));
+  // console.log('anon.res:', res);
 
   return {
-    userId,
-    userToken,
-    userNickname,
-    updateNickname,
+    userId: res.data.userId,
+    userToken: res.data.userToken,
+    userNickname: res.data.nickname,
   };
 };
