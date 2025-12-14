@@ -1,0 +1,17 @@
+[Unit]
+Description=Kiroku Note App (Nuxt)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/home/repositories/lan-notes-web
+Environment=NODE_ENV=production
+Environment=PORT=9872
+ExecStart=/usr/local/bin/bun --bun /home/repositories/lan-notes-web/.output/server/index.mjs
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

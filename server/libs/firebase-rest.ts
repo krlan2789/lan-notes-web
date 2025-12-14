@@ -3,7 +3,7 @@ import type IUserAuth from "~~/app/utils/models/IUserAuth";
 import * as jose from "jose";
 
 const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID!;
-const FIREBASE_API_KEY = process.env.NUXT_PUBLIC_FIREBASE_API_KEY!;
+const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY!;
 
 /**
  * Anonymous sign-in (REST equivalent of signInAnonymously)
@@ -110,8 +110,6 @@ export async function verifyUserToken(userToken: string) {
  * @returns
  */
 export async function updateDisplayName(userToken: string, displayName: string): Promise<IUserAuth> {
-    const FIREBASE_API_KEY = process.env.NUXT_PUBLIC_FIREBASE_API_KEY!;
-
     const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${FIREBASE_API_KEY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

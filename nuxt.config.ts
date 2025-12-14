@@ -6,16 +6,6 @@ export default defineNuxtConfig({
 	compatibilityDate: "2025-07-15",
 	ssr: false,
 	devtools: { enabled: true },
-	// runtimeConfig: {
-	// 	public: {
-	// 		firebaseApiKey: process.env.NUXT_PUBLIC_FIREBASE_API_KEY,
-	// 		firebaseAppId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
-	// 		firebaseAuthDomain: process.env.NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-	// 		firebaseMessagingSenderId: process.env.NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-	// 		firebaseProjectId: process.env.NUXT_PUBLIC_FIREBASE_PROJECT_ID,
-	// 		firebaseStorageBucket: process.env.NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-	// 	},
-	// },
 	css: ["~/assets/css/tailwind.css"],
 	app: {
 		head: {
