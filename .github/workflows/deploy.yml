@@ -97,21 +97,21 @@ jobs:
                 nvm install 20.19.5
                 nvm use 20.19.5
                 nvm alias default 20.19.5
-                ln -snf $(which node) /usr/local/bin/node-20
                 echo "Node.js version: $(node -v)"
                 echo "npm version: $(npm -v)"
             fi
+            ln -snf $(which node) /usr/local/bin/node-20
 
             # Install Bun globally via npm
             if ! command -v bun >/dev/null 2>&1; then
                 echo "Installing Bun globally..."
                 npm i -g bun
                 echo "Bun version: $(bun -v)"
-                ln -snf $(which bun) /usr/local/bin/bun
             else
                 echo "Bun is already installed."
                 echo "Bun version: $(bun -v)"
             fi
+            ln -snf $(which bun) /usr/local/bin/bun
 
             echo "Creating application user and directories..."
             sudo mkdir -p "$TARGET"
