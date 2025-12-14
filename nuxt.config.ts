@@ -68,12 +68,11 @@ export default defineNuxtConfig({
 	],
 	modules: [
 		"@nuxt/eslint",
-		"@nuxt/content",
-		// "@nuxt/ui",
-		"@nuxt/scripts",
-		// "@nuxt/image",
+		"@nuxt/content", // "@nuxt/ui",
+		"@nuxt/scripts", // "@nuxt/image",
 		"@primevue/nuxt-module",
 		"@nuxt/fonts",
+		"nuxt-gtag",
 	],
 	primevue: {
 		components: {
@@ -96,6 +95,11 @@ export default defineNuxtConfig({
 				},
 			},
 		},
+	},
+	gtag: {
+		initMode: "manual",
+		id: "G-81JLN3PTGM",
+		loadingStrategy: "async",
 	},
 	vite: {
 		plugins: [tailwindcss()],
