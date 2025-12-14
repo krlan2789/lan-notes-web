@@ -126,7 +126,7 @@ jobs:
             echo "$PROJECT_ENV" > .env
 
             # Copy nginx config and enable it only if changed
-            NGINX_CONF_SRC="./deploy/nginx/unsafe.kiroku.erlankurnia.conf"
+            NGINX_CONF_SRC="./deploy/nginx/kiroku.erlankurnia.conf"
             NGINX_CONF_DEST="/etc/nginx/sites-available/kiroku.erlankurnia.conf"
             if ! cmp -s "$NGINX_CONF_SRC" "$NGINX_CONF_DEST"; then
               echo "Updating nginx config and enabling site..."

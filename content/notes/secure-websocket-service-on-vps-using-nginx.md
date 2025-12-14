@@ -19,9 +19,10 @@ Start by configuring DNS so your subdomain directs traffic to your VPS. In your 
 
 <br/>
 
-| Type | Name      | Points to  | TTL   |
-| ---- | --------- | ---------- | ----- |
-| A    | websocket | 10.0.27.89 | 14400 |
+| Type  | Name          | Points to               | TTL   |
+| ----- | ------------- | ----------------------- | ----- |
+| A     | websocket     | 10.0.27.89              | 14400 |
+| CNAME | www.websocket | websocket.krlan2789.com | 14400 |
 
 <br/>
 
@@ -29,12 +30,12 @@ This ensures that requests to `websocket.krlan2789.com` reach your server.
 
 ## **Step 2: Secure the Service with SSL**
 
-Security is crucial for WebSocket connections. Use Certbot to obtain a free SSL certificate from Let's Encrypt. The `--webroot` method verifies your domain by placing a file in your web directory:
+Security is crucial for WebSocket connections. Use Certbot to obtain a free SSL certificate from Let's Encrypt:
 
 <br/>
 
 ```bash
-sudo certbot certonly --webroot -w /root/repositories/WebSocket-Service -d websocket.krlan2789.com
+sudo certbot -d websocket.krlan2789.com -d www.websocket.krlan2789.com
 ```
 
 <br/>
