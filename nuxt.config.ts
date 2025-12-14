@@ -19,8 +19,8 @@ export default defineNuxtConfig({
 		},
 	},
 	routeRules: {
-		'/img/**': { static: true },
-		'/files/**': { static: true },
+		"/img/**": { static: true },
+		"/files/**": { static: true },
 		// '/notes/**': { redirect: '/**', },
 	},
 	pages: {
@@ -77,7 +77,7 @@ export default defineNuxtConfig({
 	],
 	primevue: {
 		components: {
-			exclude: ['editor', 'toast', 'usetoast'],
+			exclude: ["editor", "toast", "usetoast"],
 		},
 		usePrimeVue: true,
 		autoImport: true,
@@ -99,9 +99,12 @@ export default defineNuxtConfig({
 	},
 	vite: {
 		plugins: [tailwindcss()],
-		logLevel: 'info',
+		logLevel: "info",
 		build: {
 			sourcemap: true,
 		},
+	},
+	nitro: {
+		preset: "bun",
 	},
 });
