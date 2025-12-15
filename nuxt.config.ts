@@ -67,12 +67,13 @@ export default defineNuxtConfig({
 		},
 	],
 	modules: [
-		"@nuxt/eslint",
-		"@nuxt/content", // "@nuxt/ui",
-		"@nuxt/scripts", // "@nuxt/image",
+		"@nuxt/eslint", // "@nuxt/ui",
+		"@nuxt/content", // "@nuxt/image",
+		"@nuxt/scripts",
 		"@primevue/nuxt-module",
 		"@nuxt/fonts",
 		"nuxt-gtag",
+		"@artmizu/nuxt-prometheus",
 	],
 	primevue: {
 		components: {
