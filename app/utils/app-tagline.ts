@@ -1,1 +1,1 @@
-export default "A personal notes of Erlan Kurnia's development journey — practical notes, architectural insights, and reproducible guides.";
+export default "A personal log of technical notes and architectural records, written primarily to ensure my own work remains reproducible.";

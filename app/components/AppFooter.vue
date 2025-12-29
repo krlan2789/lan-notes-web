@@ -3,7 +3,7 @@
 		<div class="w-full px-6 xl:px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
 			<!-- Branding -->
 			<div>
-				<h2 class="text-xl font-semibold mb-4">Erlan Kurnia's Notes</h2>
+				<h2 class="text-xl font-semibold mb-4">Erlan Kurnia's Note</h2>
 				<p class="text-sm text-surface-600">
 					{{ appTagline }}
 				</p>
