@@ -26,38 +26,6 @@ export default defineNuxtConfig({
 	pages: {
 		pattern: ["**/*.vue", "!**/components/**"],
 	},
-	content: {
-		// documentDriven: true,
-		build: {
-			markdown: {
-				toc: {
-					searchDepth: 1,
-				},
-				highlight: {
-					theme: "ayu-dark",
-					langs: [
-						"bash",
-						"csharp",
-						"shell",
-						"ini",
-						"properties",
-						"javascript",
-						"typescript",
-						"php",
-						"vue",
-						"cmd",
-						"cmake",
-						"kotlin",
-						"http",
-						"xml",
-						"ruby",
-						"nginx",
-						"apache",
-					],
-				},
-			},
-		},
-	},
 	components: [
 		"~/components",
 		{
@@ -67,8 +35,7 @@ export default defineNuxtConfig({
 		},
 	],
 	modules: [
-		"@nuxt/eslint", // "@nuxt/ui",
-		"@nuxt/content", // "@nuxt/image",
+		"@nuxt/eslint",
 		"@nuxt/scripts",
 		"@primevue/nuxt-module",
 		"@nuxt/fonts",

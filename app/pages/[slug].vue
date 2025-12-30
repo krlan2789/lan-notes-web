@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { DialogCommentEventName } from '~/components/DialogCommentComponent.props';
 
-// import type { ContentNavigationItem } from "@nuxt/content";
-// import { findPageHeadline } from "@nuxt/content/utils";
-
 definePageMeta({
 	layout: "notes",
 });
@@ -13,17 +10,14 @@ const { eventBus } = useEventBus();
 
 const { data: localPage } = await useAsyncData(route.path, async () => {
 	console.log(route.path);
-	return await queryCollection("notes").path('/notes' + route.path).first();
+	const data = await loadAllNotes().then((notes) =>
+		notes.find((note) => note.slug === route.params.slug)
+	);
+	return await Promise.resolve(data);
 });
 if (!localPage.value) {
 	throw createError({ statusCode: 404, statusMessage: "Page not found", fatal: true });
 }
-
-// const { data: surround } = await useAsyncData(`${route.path}-surround`, () => {
-// 	return queryCollectionItemSurroundings("notes", route.path, {
-// 		fields: ["description"],
-// 	});
-// });
 
 const metaTitle = `${localPage.value.title} - ${appTitle}`;
 const metaDesc = localPage.value.description;
