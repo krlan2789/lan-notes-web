@@ -1,4 +1,4 @@
-import type { EventBusType } from "~/utils/contracts/EventBus";
+import type { EventBusType } from "~/utils/services/CustomEventBusService";
 
 export interface IListItemData {
 	slug: string;
@@ -14,5 +14,5 @@ export interface ListItemComponentProps extends IListItemData {
 }
 
 export class ListItemEventName {
-	static OnItemClicked: EventBusType = 'item-clicked-event';
+	static OnItemClicked: EventBusType = "item-clicked-event";
 }

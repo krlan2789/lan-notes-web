@@ -16,6 +16,10 @@
 		}
 	],
 	"compilerOptions": {
-		"types": ["@nuxt/content", "./utils/types/**.d.ts", "./**.config.ts"]
+		"types": [
+			"@nuxt/content",
+			"./utils/types/**.d.ts",
+			"./**.config.ts"
+		]
 	}
 }

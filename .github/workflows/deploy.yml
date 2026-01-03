@@ -1,163 +1,163 @@
 name: Deploy to VPS with Bun
 
 on:
-  push:
-    branches: [ main ]
+    push:
+        branches: [main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Install Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
+            - name: Install Bun
+              uses: oven-sh/setup-bun@v1
+              with:
+                  bun-version: latest
 
-      - name: Install dependencies
-        run: bun install
+            - name: Install dependencies
+              run: bun install
 
-      - name: Build Nuxt
-        run: bun --bun run build
+            - name: Build Nuxt
+              run: bun --bun run build
 
-      - name: Archive build
-        run: |
-          mkdir -p nuxt-built-package
-          cp -r deploy .output nuxt-built-package || true
-          tar -czf nuxt-built-package.tar.gz -C nuxt-built-package .
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: nuxt-built-package
-          path: nuxt-built-package.tar.gz
+            - name: Archive build
+              run: |
+                  mkdir -p nuxt-built-package
+                  cp -r deploy .output nuxt-built-package || true
+                  tar -czf nuxt-built-package.tar.gz -C nuxt-built-package .
+            - name: Upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: nuxt-built-package
+                  path: nuxt-built-package.tar.gz
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main'
 
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: nuxt-built-package
+        steps:
+            - name: Download artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: nuxt-built-package
 
-      - name: Move artifact to workspace root
-        run: |
-          # download-artifact writes files into a folder named after the artifact
-          if [ -d "nuxt-built-package" ]; then
-            mv nuxt-built-package/* . || true
-          fi
+            - name: Move artifact to workspace root
+              run: |
+                  # download-artifact writes files into a folder named after the artifact
+                  if [ -d "nuxt-built-package" ]; then
+                    mv nuxt-built-package/* . || true
+                  fi
 
-      - name: Install ssh client
-        run: sudo apt-get update && sudo apt-get install -y openssh-client rsync
+            - name: Install ssh client
+              run: sudo apt-get update && sudo apt-get install -y openssh-client rsync
 
-      - name: Deploy to VPS
-        env:
-          SSH_HOST: ${{ secrets.VPS_SSH_HOST }}
-          SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
-          SSH_USER: ${{ secrets.VPS_SSH_USER }}
-          SSH_PASSWORD: ${{ secrets.VPS_SSH_PASSWORD }}
-          PROJECT_ENV: ${{ secrets.VPS_PROJECT_ENV }}
-          TARGET_DIR: ${{ vars.VPS_TARGET_DIR }}
-        run: |
-          # Use the private key and disable strict host checking for this run (you can provide known_hosts instead for better security)
-          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P ${SSH_PORT:-22} ./nuxt-built-package.tar.gz "$SSH_USER"@"$SSH_HOST":/tmp/nuxt-built-package.tar.gz
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${SSH_PORT:-22} "$SSH_USER"@"$SSH_HOST" "PROJECT_ENV='$PROJECT_ENV' TARGET=${TARGET_DIR:-/home/repositories/lan-notes-web} bash -s" << 'EOF'
-            set -euo pipefail
+            - name: Deploy to VPS
+              env:
+                  SSH_HOST: ${{ secrets.VPS_SSH_HOST }}
+                  SSH_PORT: ${{ secrets.VPS_SSH_PORT }}
+                  SSH_USER: ${{ secrets.VPS_SSH_USER }}
+                  SSH_PASSWORD: ${{ secrets.VPS_SSH_PASSWORD }}
+                  PROJECT_ENV: ${{ secrets.VPS_PROJECT_ENV }}
+                  TARGET_DIR: ${{ vars.VPS_TARGET_DIR }}
+              run: |
+                  # Use the private key and disable strict host checking for this run (you can provide known_hosts instead for better security)
+                  sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P ${SSH_PORT:-22} ./nuxt-built-package.tar.gz "$SSH_USER"@"$SSH_HOST":/tmp/nuxt-built-package.tar.gz
+                  sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${SSH_PORT:-22} "$SSH_USER"@"$SSH_HOST" "PROJECT_ENV='$PROJECT_ENV' TARGET=${TARGET_DIR:-/home/repositories/lan-notes-web} bash -s" << 'EOF'
+                    set -euo pipefail
 
-            APP_USER=root
+                    APP_USER=root
 
-            # Run on the VPS as a sudo-capable user to prepare environment
-            echo "Updating apt and installing dependencies if not present..."
-            sudo apt-get update
-            for pkg in build-essential curl git nginx pwgen; do
-                if ! dpkg -s "$pkg" >/dev/null 2>&1; then
-                    echo "Installing $pkg..."
-                    sudo apt-get install -y "$pkg"
-                else
-                    echo "$pkg is already installed."
-                fi
-            done
+                    # Run on the VPS as a sudo-capable user to prepare environment
+                    echo "Updating apt and installing dependencies if not present..."
+                    sudo apt-get update
+                    for pkg in build-essential curl git nginx pwgen; do
+                        if ! dpkg -s "$pkg" >/dev/null 2>&1; then
+                            echo "Installing $pkg..."
+                            sudo apt-get install -y "$pkg"
+                        else
+                            echo "$pkg is already installed."
+                        fi
+                    done
 
-            # Install Node.js 20.19.5 (official NodeSource)
-            if ! command -v node >/dev/null 2>&1 || [[ "$(node -v)" != v20.19.5 ]]; then
-                echo "Installing Node.js 20.19.5..."
-                if command -v nvm >/dev/null 2>&1; then
-                    echo "nvm is already installed."
-                else
-                    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-                    export NVM_DIR="$HOME/.nvm"
-                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-                    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-                fi
-                nvm install 20.19.5
-                nvm use 20.19.5
-                nvm alias default 20.19.5
-                echo "Node.js version: $(node -v)"
-                echo "npm version: $(npm -v)"
-            fi
-            ln -snf $(which node) /usr/local/bin/node-20
+                    # Install Node.js 20.19.5 (official NodeSource)
+                    if ! command -v node >/dev/null 2>&1 || [[ "$(node -v)" != v20.19.5 ]]; then
+                        echo "Installing Node.js 20.19.5..."
+                        if command -v nvm >/dev/null 2>&1; then
+                            echo "nvm is already installed."
+                        else
+                            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+                            export NVM_DIR="$HOME/.nvm"
+                            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+                        fi
+                        nvm install 20.19.5
+                        nvm use 20.19.5
+                        nvm alias default 20.19.5
+                        echo "Node.js version: $(node -v)"
+                        echo "npm version: $(npm -v)"
+                    fi
+                    ln -snf $(which node) /usr/local/bin/node-20
 
-            # Install Bun globally via npm
-            if ! command -v bun >/dev/null 2>&1; then
-                echo "Installing Bun globally..."
-                npm i -g bun
-                echo "Bun version: $(bun -v)"
-            else
-                echo "Bun is already installed."
-                echo "Bun version: $(bun -v)"
-            fi
-            ln -snf $(which bun) /usr/local/bin/bun
+                    # Install Bun globally via npm
+                    if ! command -v bun >/dev/null 2>&1; then
+                        echo "Installing Bun globally..."
+                        npm i -g bun
+                        echo "Bun version: $(bun -v)"
+                    else
+                        echo "Bun is already installed."
+                        echo "Bun version: $(bun -v)"
+                    fi
+                    ln -snf $(which bun) /usr/local/bin/bun
 
-            echo "Creating application user and directories..."
-            sudo mkdir -p "$TARGET"
-            echo "VPS setup complete."
+                    echo "Creating application user and directories..."
+                    sudo mkdir -p "$TARGET"
+                    echo "VPS setup complete."
 
-            # TARGET is provided via remote env (from the ssh command)
-            sudo tar -xzf /tmp/nuxt-built-package.tar.gz -C "$TARGET"
-            cd "$TARGET"
-            pwd
+                    # TARGET is provided via remote env (from the ssh command)
+                    sudo tar -xzf /tmp/nuxt-built-package.tar.gz -C "$TARGET"
+                    cd "$TARGET"
+                    pwd
 
-            # Write environment file
-            echo "$PROJECT_ENV" > .env
+                    # Write environment file
+                    echo "$PROJECT_ENV" > .env
 
-            # Copy nginx config and enable it only if changed
-            NGINX_CONF_SRC="./deploy/nginx/kiroku.erlankurnia.conf"
-            NGINX_CONF_DEST="/etc/nginx/sites-available/kiroku.erlankurnia.conf"
-            if ! cmp -s "$NGINX_CONF_SRC" "$NGINX_CONF_DEST"; then
-              echo "Updating nginx config and enabling site..."
-              sudo cp "$NGINX_CONF_SRC" "$NGINX_CONF_DEST"
-              if [ ! -e /etc/nginx/sites-enabled/kiroku.erlankurnia.conf ]; then
-                sudo ln -s /etc/nginx/sites-available/kiroku.erlankurnia.conf /etc/nginx/sites-enabled/
-              fi
-              sudo systemctl reload nginx
-              sudo nginx -t
-            else
-              echo "nginx config unchanged, skipping copy/reload."
-            fi
+                    # Copy nginx config and enable it only if changed
+                    NGINX_CONF_SRC="./deploy/nginx/kiroku.erlankurnia.conf"
+                    NGINX_CONF_DEST="/etc/nginx/sites-available/kiroku.erlankurnia.conf"
+                    if ! cmp -s "$NGINX_CONF_SRC" "$NGINX_CONF_DEST"; then
+                      echo "Updating nginx config and enabling site..."
+                      sudo cp "$NGINX_CONF_SRC" "$NGINX_CONF_DEST"
+                      if [ ! -e /etc/nginx/sites-enabled/kiroku.erlankurnia.conf ]; then
+                        sudo ln -s /etc/nginx/sites-available/kiroku.erlankurnia.conf /etc/nginx/sites-enabled/
+                      fi
+                      sudo systemctl reload nginx
+                      sudo nginx -t
+                    else
+                      echo "nginx config unchanged, skipping copy/reload."
+                    fi
 
-            # Copy systemd unit and enable + restart service only if changed
-            SYSTEMD_UNIT_SRC="./deploy/systemd/lan-notes-web.service"
-            SYSTEMD_UNIT_DEST="/etc/systemd/system/lan-notes-web.service"
-            if ! cmp -s "$SYSTEMD_UNIT_SRC" "$SYSTEMD_UNIT_DEST"; then
-              echo "Updating systemd unit and enabling service..."
-              sudo cp "$SYSTEMD_UNIT_SRC" "$SYSTEMD_UNIT_DEST"
-              sudo systemctl daemon-reexec
-              sudo systemctl daemon-reload
-              sudo systemctl enable --now lan-notes-web.service
-            else
-              echo "Systemd unit unchanged, skipping copy/reload."
-              sudo systemctl restart lan-notes-web.service
-            fi
+                    # Copy systemd unit and enable + restart service only if changed
+                    SYSTEMD_UNIT_SRC="./deploy/systemd/lan-notes-web.service"
+                    SYSTEMD_UNIT_DEST="/etc/systemd/system/lan-notes-web.service"
+                    if ! cmp -s "$SYSTEMD_UNIT_SRC" "$SYSTEMD_UNIT_DEST"; then
+                      echo "Updating systemd unit and enabling service..."
+                      sudo cp "$SYSTEMD_UNIT_SRC" "$SYSTEMD_UNIT_DEST"
+                      sudo systemctl daemon-reexec
+                      sudo systemctl daemon-reload
+                      sudo systemctl enable --now lan-notes-web.service
+                    else
+                      echo "Systemd unit unchanged, skipping copy/reload."
+                      sudo systemctl restart lan-notes-web.service
+                    fi
 
-            echo "Enable and start nginx"
-            sudo systemctl enable --now nginx
+                    echo "Enable and start nginx"
+                    sudo systemctl enable --now nginx
 
-            # Tail logs briefly
-            sudo systemctl restart lan-notes-web.service
-            sudo journalctl -u lan-notes-web.service --no-pager -n 50 || true
-          EOF
+                    # Tail logs briefly
+                    sudo systemctl restart lan-notes-web.service
+                    sudo journalctl -u lan-notes-web.service --no-pager -n 50 || true
+                  EOF

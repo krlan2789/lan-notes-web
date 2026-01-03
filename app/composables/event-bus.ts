@@ -1,8 +1,10 @@
-import EventBus from "~/utils/contracts/EventBus";
+import type IEventBus from "~/utils/contracts/IEventBus";
+import CustomEventBusService from "~/utils/services/CustomEventBusService";
 
-const eventBus = new EventBus();
+type EventBusType = { eventBus: IEventBus };
+const eventBus = new CustomEventBusService();
 
-export function useEventBus() {
+export function useEventBus(): EventBusType {
 	return {
 		eventBus,
 	};

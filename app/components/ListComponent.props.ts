@@ -1,4 +1,4 @@
-import type INoteContent from "~/utils/interfaces/INoteContent";
+import type INoteContent from "~/utils/models/INoteContent";
 
 export interface ListComponentProps {
 	items: INoteContent[];

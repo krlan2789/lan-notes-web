@@ -19,17 +19,6 @@
 		"prettier.tabWidth": 4,
 		"prettier.semi": true
 	},
-	"tailwindCSS.classAttributes": [
-		"class",
-		"className",
-		"ngClass",
-		"class:list",
-		"ui"
-	],
-	"tailwindCSS.experimental.classRegex": [
-		[
-			"ui:\\s*{([^)]*)\\s*}",
-			"(?:'|\"|`)([^']*)(?:'|\"|`)"
-		]
-	]
+	"tailwindCSS.classAttributes": ["class", "className", "ngClass", "class:list", "ui"],
+	"tailwindCSS.experimental.classRegex": [["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]]
 }

@@ -1,4 +1,4 @@
 export default interface CreateCommentDto {
-    content: string;
-    nickname: string;
+	content: string;
+	nickname: string;
 }

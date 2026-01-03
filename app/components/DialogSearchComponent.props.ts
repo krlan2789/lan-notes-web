@@ -1,4 +1,4 @@
-import type { EventBusType } from "~/utils/contracts/EventBus";
+import type { EventBusType } from "~/utils/services/CustomEventBusService";
 
 export interface DialogSearchComponentProps {
 	onShow?: () => void;
@@ -6,6 +6,6 @@ export interface DialogSearchComponentProps {
 }
 
 export class DialogSearchEventName {
-	static OnShow: EventBusType = 'show-dialog-search-event';
-	static OnHide: EventBusType = 'hide-dialog-search-event';
+	static OnShow: EventBusType = "show-dialog-search-event";
+	static OnHide: EventBusType = "hide-dialog-search-event";
 }

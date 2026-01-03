@@ -1,5 +1,116 @@
 /* ------------ Markdown ------------ */
 @layer components {
+	#markdown #markdown-content > * {
+		@apply w-full text-surface-800;
+	}
+
+	#markdown #markdown-content ul > li > img,
+	#markdown #markdown-content ol > li > img {
+		@apply mt-2 mb-4;
+	}
+
+	#markdown hr {
+		@apply mt-6;
+	}
+
+	#markdown h1 {
+		@apply mt-8 mb-6 font-semibold text-2xl border-b-2 pb-2 border-b-surface-100;
+	}
+
+	#markdown h2 {
+		@apply mt-6 mb-4 font-normal text-xl;
+	}
+
+	#markdown h3 {
+		@apply mt-6 mb-4 font-normal text-lg;
+	}
+
+	#markdown h4 {
+		@apply mt-5 mb-3 font-light text-[1.1rem];
+	}
+
+	#markdown ol > *,
+	#markdown ul > * {
+		@apply mt-4 ml-10;
+	}
+
+	#markdown ul > li {
+		@apply list-[circle];
+	}
+
+	#markdown ol > li {
+		@apply list-decimal;
+	}
+
+	/* #markdown a {
+		@apply text-surface-100 bg-primary rounded-none px-0.5;
+	} */
+
+	/* Link inside markdown content */
+	#markdown div p > a,
+	#markdown div li > a {
+		@apply text-surface-100 bg-primary rounded-none px-0.5;
+	}
+
+	#markdown #markdown-code-container:has(> #markdown-code-content) {
+		@apply mb-4! mt-2!;
+	}
+
+	/* Code snippet hint label */
+	#markdown #markdown-code-container:has(> #markdown-code-content) > .code-snippet-hint {
+		@apply absolute block left-5 top-5 min-w-max text-left text-xs text-surface-500 select-none;
+	}
+
+	#markdown #markdown-code-container:has(> #markdown-code-content) > .copy-btn {
+		@apply absolute top-5 right-5 h-6 w-auto text-sm font-semibold px-1 rounded-none cursor-pointer text-primary bg-surface-300 hover:text-surface-300 hover:bg-primary hover:font-bold;
+	}
+
+	#markdown #markdown-code-container > #markdown-code-content {
+		@apply block overflow-x-auto select-text text-surface-200 dark:text-surface-900 bg-neutral-800 rounded-none pt-8 pb-0 px-5 m-0 h-auto min-h-8;
+	}
+
+	#markdown #markdown-code-container > #markdown-code-content > code {
+		@apply block min-w-max m-0;
+	}
+
+	#markdown #markdown-content > p:has(> strong) {
+		@apply mt-4 mb-2;
+	}
+
+	#markdown table {
+		@apply border-2 w-full my-2;
+	}
+
+	#markdown *:has(> table) {
+		@apply overflow-x-auto;
+	}
+
+	#markdown table th,
+	#markdown table td {
+		@apply border-primary/50 border-2;
+	}
+
+	#markdown li > code,
+	#markdown p > code {
+		@apply rounded-none px-1 -mx-1 border-primary/50 border-2;
+	}
+
+	#markdown table th {
+		@apply p-3;
+	}
+
+	#markdown table td {
+		@apply py-2 px-3;
+	}
+
+	#markdown img {
+		@apply my-4;
+	}
+}
+/* ------------ Markdown ------------ */
+
+/* ------------ Markdown ------------
+@layer components {
 	#markdown hr {
 		@apply my-2;
 	}
@@ -58,15 +169,6 @@
 	#markdown #markdown-content > p:has(> strong) {
 		@apply mt-4 mb-2;
 	}
-
-	/* #markdown #markdown-content pre:has(> code) {
-		@apply select-text;
-	}
-
-	#markdown #markdown-content p > pre:has(> code > span),
-	#markdown #markdown-content li > pre:has(> code > span) {
-		@apply bg-surface-300! rounded-none py-1! px-2!;
-	} */
 
 	#markdown #markdown-content table {
 		@apply border-2 w-full my-2;

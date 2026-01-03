@@ -1,8 +1,7 @@
-export type EventBusType = string;
+import type { EventBusCallback, EventBusType } from "../interfaces/IEventBus";
+import type IEventBus from "../interfaces/IEventBus";
 
-export type EventBusCallback = (...args: any[]) => void;
-
-export default class EventBus {
+export default class CustomEventBusService implements IEventBus {
 	private listeners: Map<EventBusType, EventBusCallback[]>;
 
 	constructor() {
@@ -28,5 +27,3 @@ export default class EventBus {
 		}
 	}
 }
-
-// export default new EventBus();

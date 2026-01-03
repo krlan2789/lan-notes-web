@@ -34,14 +34,7 @@ export default defineNuxtConfig({
 			pathPrefix: false,
 		},
 	],
-	modules: [
-		"@nuxt/eslint",
-		"@nuxt/scripts",
-		"@primevue/nuxt-module",
-		"@nuxt/fonts",
-		"nuxt-gtag",
-		"@artmizu/nuxt-prometheus",
-	],
+	modules: ["@nuxt/eslint", "@nuxt/scripts", "@primevue/nuxt-module", "@nuxt/fonts", "nuxt-gtag", "@artmizu/nuxt-prometheus"],
 	primevue: {
 		components: {
 			exclude: ["editor", "toast", "usetoast"],

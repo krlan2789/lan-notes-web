@@ -1,14 +1,37 @@
+import BaseResponseDto from "~~/server/dtos/BaseResponseDto";
 import UpdateNicknameDto from "~~/server/dtos/UpdateNicknameDto";
-import { updateDisplayName } from "~~/server/libs/firebase-rest";
+import containerRegistry from "~~/server/libs/container-registry";
+import { FirebaseServiceToken, IFirebaseService } from "~~/server/libs/contracts/IFirebaseService";
 
-export default defineEventHandler(async (event) => {
-  const userToken = '' + event.context.auth?.userToken;
-  const { nickname } = await readBody<UpdateNicknameDto>(event);
+export default defineEventHandler(async (event): Promise<BaseResponseDto> => {
+	let res: BaseResponseDto = {
+		status: 500,
+		cause: [{ field: "exception", message: 'Some service no found' }],
+	};
 
-  if (!userToken || !nickname) {
-    throw createError({ statusCode: 400, statusMessage: "userToken and nickname are required" });
-  }
+	try {
+		const userToken = "" + event.context.auth?.userToken;
+		const { nickname } = await readBody<UpdateNicknameDto>(event);
 
-  const updatedUser = await updateDisplayName(userToken, nickname);
-  return updatedUser;
+		if (!userToken || !nickname) {
+			res = {
+				status: 400,
+				cause: [
+					{ field: 'userToken', message: 'Required parameter' },
+					{ field: 'nickname', message: 'Required parameter' },
+				]
+			};
+			throw createError(res);
+		}
+
+		const firebaseService = containerRegistry.resolve<IFirebaseService>(FirebaseServiceToken, event);
+		if (!firebaseService) {
+			throw createError(res);
+		}
+		const updatedUser = await firebaseService.updateDisplayName(userToken, nickname);
+		return { status: 200, data: updatedUser };
+	} catch (err) {
+		res.cause = [{ field: "exception", message: JSON.stringify(err) }];
+		throw createError(res);
+	}
 });

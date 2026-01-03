@@ -2,7 +2,7 @@
 const route = useRoute();
 const router = useRouter();
 const selectedTags = ref(new Set<string>());
-const searchKeyword = ref('');
+const searchKeyword = ref("");
 if (route.params.tags instanceof Array) {
 	selectedTags.value = new Set<string>(route.params.tags.map((val) => val.toLowerCase()));
 } else if (typeof route.params.tags == "string") {
@@ -12,7 +12,8 @@ if (route.params.tags instanceof Array) {
 }
 selectedTags.value?.delete("");
 
-const notes = await loadAllNotes({ path: route.path });
+const notes = await fetchAllNotes({ latestFirst: true });
+// console.debug('All notes fetched: ', notes);
 const tags = [...new Set((notes ?? []).flatMap((n) => n.tags ?? []))];
 
 const filteredNotes = computed(() => {
@@ -22,11 +23,14 @@ const filteredNotes = computed(() => {
 			isIncluded = true;
 		} else if (searchKeyword.value != null && searchKeyword.value.length > 0) {
 			isIncluded =
-				n.status?.toLowerCase().includes(searchKeyword.value) ||
 				n.title?.toLowerCase().includes(searchKeyword.value) ||
 				n.description?.toLowerCase().includes(searchKeyword.value) ||
 				n.date?.toLowerCase().includes(searchKeyword.value) ||
-				n.tags?.some((t) => t.toLowerCase().includes(searchKeyword.value) || n.tags?.some((t) => selectedTags.value.has(t.toLowerCase())))
+				n.tags?.some(
+					(t) =>
+						t.toLowerCase().includes(searchKeyword.value) ||
+						n.tags?.some((t) => selectedTags.value.has(t.toLowerCase())),
+				);
 		} else {
 			isIncluded = n.tags?.some((t) => selectedTags.value.has(t.toLowerCase())) ?? false;
 		}
@@ -36,13 +40,13 @@ const filteredNotes = computed(() => {
 });
 
 const onTagSelected = (tags: string[]) => {
-	console.debug('selectedTags: ' + tags);
+	// console.debug('selectedTags: ' + tags);
 	selectedTags.value = new Set(tags);
 
 	router.replace({
 		name: route.name,
 		params: {
-			tags: Array.from(selectedTags.value).join(','),
+			tags: Array.from(selectedTags.value).join(","),
 		},
 		replace: true,
 	});
@@ -64,8 +68,14 @@ useSeoMeta({
 
 <template>
 	<div class="container px-6 xl:px-4 mt-14 sm:mt-18">
-		<TagFiltersComponent class="w-full pb-2 pt-12 mx-auto" :tags :initial-selected-tags="selectedTags"
-			:force-exapand="selectedTags.size > 0" @selected="onTagSelected" @search="onFindByKeyword" />
+		<TagFiltersComponent
+			class="w-full pb-2 pt-12 mx-auto"
+			:tags
+			:initial-selected-tags="selectedTags"
+			:force-exapand="selectedTags.size > 0"
+			@selected="onTagSelected"
+			@search="onFindByKeyword"
+		/>
 		<ListComponent class="w-full mb-16 mx-auto" :items="filteredNotes" paginate />
 	</div>
 </template>

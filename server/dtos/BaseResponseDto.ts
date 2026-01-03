@@ -1,11 +1,11 @@
 export default interface BaseResponseDto {
-    statusCode: number;
-    statusMessage?: string;
-    errors?: ErrorDto[];
-    data?: any;
+	status: number;
+	statusMessage?: string;
+	cause?: ErrorDto[];
+	data?: any;
 }
 
 export interface ErrorDto {
-    field: string;
-    message: string;
+	field: string;
+	message: string;
 }

@@ -1,4 +1,4 @@
-import type { EventBusType } from "~/utils/contracts/EventBus";
+import type { EventBusType } from "~/utils/services/CustomEventBusService";
 
 export interface TagFiltersComponentProps {
 	tags: string[];
@@ -9,5 +9,5 @@ export interface TagFiltersComponentProps {
 }
 
 export class TagFiltersEventName {
-	static OnTagSelected: EventBusType = 'tag-selected-event';
+	static OnTagSelected: EventBusType = "tag-selected-event";
 }

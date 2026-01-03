@@ -1,44 +1,43 @@
 <script lang="ts" setup>
 import { useEventBus } from "~/composables/event-bus";
 import { DialogSearchEventName, type DialogSearchComponentProps } from "./DialogSearchComponent.props";
-import type INoteContent from "~/utils/interfaces/INoteContent";
+import type INoteContent from "~/utils/models/INoteContent";
 import { ListItemEventName, type IListItemData } from "./ListItemComponent.props";
 
 const props = defineProps<DialogSearchComponentProps>();
 
 const visible = ref(false);
-const searchKeyword = ref('');
+const searchKeyword = ref("");
 const filteredNotes = ref<INoteContent[]>([]);
 const { eventBus } = useEventBus();
 
 watch(searchKeyword, async (keyword) => {
 	if (keyword?.length > 0) {
-		const res = await loadAllNotes({ path: 'live-search', latestFirst: true, keyword });
+		const res = await fetchAllNotes({ path: "live-search", latestFirst: true, keyword });
 		// console.log(keyword);
 		// console.log(res);
 		filteredNotes.value = res ?? [];
 	} else {
 		filteredNotes.value = [];
 	}
-
 });
 
 let timer = 0;
 const onFindByKeyword = (keyword: string) => {
 	// console.log(keyword);
 	if (timer > 0) clearTimeout(timer);
-	timer = setTimeout(searchKeyword.value = keyword.toLowerCase(), 500);
+	timer = setTimeout((searchKeyword.value = keyword.toLowerCase()), 500);
 };
 
 const showDialog = () => {
 	visible.value = true;
-	searchKeyword.value = '';
+	searchKeyword.value = "";
 	if (props.onShow) props.onShow();
 };
 
 const hideDialog = () => {
 	visible.value = false;
-	searchKeyword.value = '';
+	searchKeyword.value = "";
 	if (props.onHide) props.onHide();
 };
 
@@ -68,9 +67,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<Dialog v-model:visible="visible" modal :style="{ width: '50rem' }" class="bg-surface-0 origin-top h-[92vh]"
-		dismissable-mask close-on-escape block-scroll :draggable="false"
-		:breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+	<Dialog
+		v-model:visible="visible"
+		modal
+		:style="{ width: '50rem' }"
+		class="bg-surface-0 origin-top h-[92vh]"
+		dismissable-mask
+		close-on-escape
+		block-scroll
+		:draggable="false"
+		:breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+	>
 		<template #header>
 			<SearchBarComponent class="w-full mr-2" @search="onFindByKeyword" autofocus />
 		</template>

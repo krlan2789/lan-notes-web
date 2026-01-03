@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type INoteContent from "~/utils/interfaces/INoteContent";
+import type INoteContent from "~/utils/models/INoteContent";
 import type { ListComponentProps } from "./ListComponent.props";
 
 const props = defineProps<ListComponentProps>();
@@ -10,13 +10,27 @@ const useLayout = ref(props.layout ?? "list");
 
 <template>
 	<div class="card">
-		<DataView :value="items" :layout="useLayout" :paginator="paginate" :rows="8" :alwaysShowPaginator="paginate"
-			class="bg-surface-0">
+		<DataView
+			:value="items"
+			:layout="useLayout"
+			:paginator="paginate"
+			:rows="8"
+			:alwaysShowPaginator="paginate"
+			class="bg-surface-0"
+		>
 			<template #list="{ items }: { items: INoteContent[] }">
 				<div class="flex flex-col gap-6 py-4 lg:gap-10 mb-6 lg:mb-10">
-					<ListItemComponent v-for="(item, index) in items" :key="index" :index
-						class="flex-[4.7] grow-[4.7] shrink-[4.7]" :slug="item.slug ?? '' + item.slug"
-						:title="item.title" :date="item.date" :description="item.description" :tags="item.tags">
+					<ListItemComponent
+						v-for="(item, index) in items"
+						:key="index"
+						:index
+						class="flex-[4.7] grow-[4.7] shrink-[4.7]"
+						:slug="item.slug ?? '' + item.slug"
+						:title="item.title"
+						:date="item.date"
+						:description="item.description"
+						:tags="item.tags"
+					>
 					</ListItemComponent>
 				</div>
 			</template>
@@ -24,9 +38,16 @@ const useLayout = ref(props.layout ?? "list");
 			<template #grid="{ items }: { items: INoteContent[] }">
 				<div class="grid grid-cols-12 gap-4 mb-6 lg:mb-10">
 					<div v-for="(item, index) in items" :key="index" class="col-span-12 md:col-span-6 p-4">
-						<ListItemComponent v-for="(item, index) in items" :key="index" :index
-							:slug="item.slug ?? '' + item.slug" :title="item.title" :date="item.date"
-							:description="item.description" :tags="item.tags"></ListItemComponent>
+						<ListItemComponent
+							v-for="(item, index) in items"
+							:key="index"
+							:index
+							:slug="item.slug ?? '' + item.slug"
+							:title="item.title"
+							:date="item.date"
+							:description="item.description"
+							:tags="item.tags"
+						></ListItemComponent>
 					</div>
 				</div>
 			</template>
@@ -35,17 +56,19 @@ const useLayout = ref(props.layout ?? "list");
 					No notes found
 				</div>
 			</template>
-			<template
-				#paginatorcontainer="{ first, last, page, pageCount, prevPageCallback, nextPageCallback, totalRecords }">
+			<template #paginatorcontainer="{ first, last, page, pageCount, prevPageCallback, nextPageCallback, totalRecords }">
 				<div class="flex items-center gap-4 bg-surface-50 w-full py-1 px-2 justify-between">
-					<Button icon="pi pi-chevron-left" variant="text" @click="prevPageCallback"
-						:disabled="page === 0"></Button>
+					<Button icon="pi pi-chevron-left" variant="text" @click="prevPageCallback" :disabled="page === 0"></Button>
 					<div class="text-color font-medium">
 						<span class="hidden sm:block">Showing {{ first }} to {{ last }} of {{ totalRecords }}</span>
 						<span class="block sm:hidden">Page {{ page + 1 }} of {{ pageCount }}</span>
 					</div>
-					<Button icon="pi pi-chevron-right" variant="text" @click="nextPageCallback"
-						:disabled="page === (pageCount ?? 0) - 1"></Button>
+					<Button
+						icon="pi pi-chevron-right"
+						variant="text"
+						@click="nextPageCallback"
+						:disabled="page === (pageCount ?? 0) - 1"
+					></Button>
 				</div>
 			</template>
 		</DataView>

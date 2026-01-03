@@ -1,4 +1,4 @@
-import type { EventBusType } from "~/utils/contracts/EventBus";
+import type { EventBusType } from "~/utils/services/CustomEventBusService";
 
 export interface SearchBarComponentProps {
 	defaultKeyword?: string;
@@ -7,5 +7,5 @@ export interface SearchBarComponentProps {
 }
 
 export class SearchBarEventName {
-	static OnSearchByKeyword: EventBusType = 'search-by-keyword-event';
+	static OnSearchByKeyword: EventBusType = "search-by-keyword-event";
 }

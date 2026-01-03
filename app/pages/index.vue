@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const targetComponent = ref<Element | ComponentPublicInstance | null>(null);
 
-const notes = await loadAllNotes({ latestFirst: true });
+const notes = await fetchAllNotes({ latestFirst: true });
 const metaTitle = appTitle;
 const metaDesc = appTagline;
 useSeoMeta({
@@ -15,5 +15,5 @@ useSeoMeta({
 
 <template>
 	<HeroComponent :scroll-target="targetComponent" :total-notes="notes.length" class="w-full mx-auto" />
-	<TimelineComponent :ref="(ref) => targetComponent = ref" class="container pt-14 md:pt-18" :items="notes" />
+	<TimelineComponent :ref="(ref) => (targetComponent = ref)" class="container pt-14 md:pt-18" :items="notes" />
 </template>
